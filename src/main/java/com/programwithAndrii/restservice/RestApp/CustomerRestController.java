@@ -26,7 +26,5 @@ public class CustomerRestController {
     public void putCustomer(@PathParam("id") String id){
         System.out.println("put id customer " + id);
     }
-
-
     // todo add post, put methods to rest controller
 }
