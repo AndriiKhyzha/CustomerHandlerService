@@ -8,10 +8,4 @@ public class RestAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RestAppApplication.class, args);
 	}
-
-	CustomerRestController crc = new CustomerRestController();
-
-	public void putCrs() {
-		crc.putCustomer("Boris");
-	}
 }
