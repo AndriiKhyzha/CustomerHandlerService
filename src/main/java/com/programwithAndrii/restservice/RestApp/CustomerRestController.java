@@ -1,10 +1,14 @@
 package com.programwithAndrii.restservice.RestApp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerRestController {
+
+    @Autowired
+    CustomerServise cs = new CustomerServise();
 
     @GetMapping("/{id}")
     public String getCustomer(@PathVariable("id") String id){
@@ -25,7 +29,7 @@ public class CustomerRestController {
     }
 
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable("country") String id, @RequestBody Customer customer){
+    public Customer updateCustomer(@PathVariable("id") String id, @RequestBody Customer customer){
         Customer customer1 = new Customer(customer.getName(), customer.getId(), customer.getAddress());
         System.out.println(customer1);
         return customer1;

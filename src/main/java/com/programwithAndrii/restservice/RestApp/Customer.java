@@ -6,6 +6,14 @@ public class Customer {
     private String id;
     private Address address;
 
+    public void setAddress(Address address){
+        this.address = address;
+    }
+
+    public Address getAddress(){
+        return address;
+    }
+
     public Customer(){
 
     }
@@ -15,18 +23,10 @@ public class Customer {
         this.id = id;
     }
 
-    public Customer(String name, String id, Address address){
+    public Customer(String name, String id, Address address) {
         this.name = name;
         this.id = id;
         this.address = address;
-    }
-
-    public void setAddress(Address address){
-        this.address = address;
-    }
-
-    public Address getAddress(){
-        return address;
     }
 
     public void setName(String name){
