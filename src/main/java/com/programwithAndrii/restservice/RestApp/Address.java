@@ -5,13 +5,13 @@ public class Address {
     private String country;
     private String city;
     private String street;
-    private String  number;
+    private String number;
 
     public Address(){
 
     }
 
-    public Address(String country,String city, String street,String number) {
+    public Address(String country, String city, String street, String number) {
         this.country = country;
         this.city = city;
         this.street = street;
@@ -33,5 +33,4 @@ public class Address {
     public String getNumber(){
         return number;
     }
-
 }

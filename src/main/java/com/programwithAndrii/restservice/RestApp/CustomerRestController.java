@@ -8,30 +8,29 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerRestController {
 
     @Autowired
-    CustomerServise cs = new CustomerServise();
+    private CustomerService customerService;
 
-    @GetMapping("/{id}")
-    public String getCustomer(@PathVariable("id") String id){
-        return id;
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public @ResponseBody Customer getCustomer(@PathVariable("id") String id){
+        return customerService.getCustomer(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable("id") String id) {
-        System.out.println("removing id customer " + id);
+        customerService.deleteCustomer(id);
     }
 
-    @PostMapping("/{id}")
-    public Customer createCustomer(@PathVariable("id") String id, @RequestBody Customer customer) {
-        Customer customer1 = new Customer(customer.getName(), customer.getId());
+    @PostMapping(produces = "application/json", consumes = "application/json")
+    public @ResponseBody Customer createCustomer(@RequestBody Customer customer) {
+        customerService.createCustomer(customer);
         System.out.println(customer.getId());
-        System.out.println("post id customer " + id);
-        return customer1;
+        return customer;
     }
 
-    @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable("id") String id, @RequestBody Customer customer){
-        Customer customer1 = new Customer(customer.getName(), customer.getId(), customer.getAddress());
-        System.out.println(customer1);
-        return customer1;
+    @PutMapping(produces = "application/json", consumes = "application/json")
+    public @ResponseBody Customer updateCustomer(@RequestBody Customer customer){
+        Customer updatedCustomer = customerService.updateCustomer(customer);
+        System.out.println(updatedCustomer);
+        return updatedCustomer;
     }
 }
