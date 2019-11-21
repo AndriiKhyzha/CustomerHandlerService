@@ -1,4 +1,6 @@
-package com.programwithAndrii.restservice.RestApp;
+package com.programwithAndrii.restservice.RestApp.Model;
+
+import com.programwithAndrii.restservice.RestApp.Controllers.Customer;
 
 public interface CustomerService {
 

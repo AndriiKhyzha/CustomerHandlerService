@@ -1,4 +1,4 @@
-package com.programwithAndrii.restservice.RestApp;
+package com.programwithAndrii.restservice.RestApp.Controllers;
 
 public class Address {
 

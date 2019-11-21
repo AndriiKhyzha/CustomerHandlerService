@@ -1,5 +1,7 @@
-package com.programwithAndrii.restservice.RestApp;
+package com.programwithAndrii.restservice.RestApp.Model;
 
+import com.programwithAndrii.restservice.RestApp.Controllers.Customer;
+import com.programwithAndrii.restservice.RestApp.Model.CustomerService;
 import org.springframework.stereotype.Service;
 
 @Service

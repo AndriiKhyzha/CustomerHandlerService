@@ -1,5 +1,7 @@
 package com.programwithAndrii.restservice.RestApp;
 
+import com.programwithAndrii.restservice.RestApp.Controllers.Customer;
+import com.programwithAndrii.restservice.RestApp.Model.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,8 @@ public class CustomerRestController {
     private CustomerService customerService;
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody Customer getCustomer(@PathVariable("id") String id){
+    public @ResponseBody
+    Customer getCustomer(@PathVariable("id") String id){
         return customerService.getCustomer(id);
     }
 
