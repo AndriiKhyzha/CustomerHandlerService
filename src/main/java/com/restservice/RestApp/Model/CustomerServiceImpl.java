@@ -1,20 +1,21 @@
-package com.programwithAndrii.restservice.RestApp.Model;
+package com.restservice.RestApp.Model;
 
-import com.programwithAndrii.restservice.RestApp.Controllers.Customer;
+import com.restservice.RestApp.Controllers.Customer;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     @Override
-    public Customer getCustomer(String id) {
-        System.out.println("get " + id + " customer");
-        return new Customer("", id);
+    public Customer getCustomer(Customer customer) {
+        Customer getCustomerinfo = new Customer(customer.getName(), customer.getId(), customer.getAddress());
+        System.out.println("get " + customer.getId() + " customer");
+        return getCustomerinfo;
     }
 
     @Override
     public Customer createCustomer(Customer customer) {
-        Customer createdCustomer = new Customer(customer.getName(), customer.getId());
+        Customer createdCustomer = new Customer(customer.getName(), customer.getId(), customer.getAddress());
         System.out.println("post " + customer.getId() + " customer");
         return createdCustomer;
     }
@@ -28,6 +29,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(String id){
-        System.out.println( "deleted id customer" + id);
+        System.out.println( "deleted customer" + id);
     }
 }

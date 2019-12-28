@@ -1,10 +1,10 @@
-package com.programwithAndrii.restservice.RestApp.Model;
+package com.restservice.RestApp.Model;
 
-import com.programwithAndrii.restservice.RestApp.Controllers.Customer;
+import com.restservice.RestApp.Controllers.Customer;
 
 public interface CustomerService {
 
-    Customer getCustomer(String id);
+    Customer getCustomer(Customer customer);
 
     void deleteCustomer(String id);
 

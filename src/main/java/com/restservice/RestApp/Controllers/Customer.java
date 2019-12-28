@@ -1,4 +1,4 @@
-package com.programwithAndrii.restservice.RestApp.Controllers;
+package com.restservice.RestApp.Controllers;
 
 public class Customer {
 

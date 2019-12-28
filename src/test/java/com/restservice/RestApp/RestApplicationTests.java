@@ -1,4 +1,4 @@
-package com.programwithAndrii.restservice.RestApp;
+package com.restservice.RestApp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
