@@ -8,22 +8,23 @@ import org.springframework.stereotype.Service;
 public class CustomerServiceImpl implements CustomerService {
 
     @Override
-    public Customer getCustomer(String id) {
-        return new Customer("Brandi", id);
+    public Customer getCustomer(Customer customer)
+    {
+        return new Customer(customer.getName(), customer.getId());
     }
 
     @Override
     public Customer createCustomer(Customer customer) {
-        Customer createdCustomer = new Customer(customer.getName(), customer.getId());
+        Customer createCustomer = new Customer(customer.setName(), customer.setId());
         System.out.println("post id customer");
-        return createdCustomer;
+        return createCustomer;
     }
 
     @Override
     public Customer updateCustomer(Customer customer){
-        Customer updatesCustomer = new Customer(customer.getName(), customer.getId(), customer.getAddress());
+        Customer updateCustomer = new Customer(customer.getName(), customer.getId(), customer.getAddress());
         System.out.println("created id customer");
-        return updatesCustomer;
+        return updateCustomer;
     }
 
     @Override
