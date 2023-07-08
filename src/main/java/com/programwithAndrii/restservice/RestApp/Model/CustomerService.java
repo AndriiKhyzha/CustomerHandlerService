@@ -4,7 +4,7 @@ import com.programwithAndrii.restservice.RestApp.Controllers.Customer;
 
 public interface CustomerService {
 
-    Customer getCustomer(String id);
+    Customer getCustomer(String name, String id);
 
     void deleteCustomer(String id);
 

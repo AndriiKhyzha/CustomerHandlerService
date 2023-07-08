@@ -14,8 +14,9 @@ public class CustomerRestController {
 
     @GetMapping(value = "/{id}", produces = "application/json")
     public @ResponseBody
-    Customer getCustomer(@PathVariable("id") String id){
-        return customerService.getCustomer(id);
+    Customer getCustomer(String name, @PathVariable("id") String id){
+        Customer customer = new Customer();
+        return customerService.getCustomer("Scuko", "Bliad");
     }
 
     @DeleteMapping("/{id}")
