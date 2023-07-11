@@ -1,4 +1,7 @@
 package com.programwithAndrii.restservice.RestApp;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,7 @@ public class RestApplication {
 //	public static final Logger logger = LoggerFactory.getLogger(RestAppApplication.class);
 
 	public static void main(String[] args) throws IOException {
+
 //		try{
 //			LogManager.getLogManager().readConfiguration(RestAppApplication.class.getResourceAsStream("/logging properties"));
 //		} catch (IOException e){

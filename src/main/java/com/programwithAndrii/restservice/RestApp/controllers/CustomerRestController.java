@@ -1,7 +1,6 @@
-package com.programwithAndrii.restservice.RestApp;
-
-import com.programwithAndrii.restservice.RestApp.Controllers.Customer;
-import com.programwithAndrii.restservice.RestApp.Model.CustomerServiceImpl;
+package com.programwithAndrii.restservice.RestApp.controllers;
+import com.programwithAndrii.restservice.RestApp.models.Customer;
+import com.programwithAndrii.restservice.RestApp.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,30 +9,29 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerRestController {
 
     @Autowired
-    private CustomerServiceImpl customerServiceImpl;
+    private CustomerService customerService;
 
-    @GetMapping(value = "/{name, id}", produces = "application/json")
+    @GetMapping(value = "/{name}/{id}", produces = "application/json")
     public @ResponseBody
-    Customer getCustomer(@PathVariable ("Robbie") String name, @PathVariable("3016") String id){
-        Customer customer = new Customer(name, id);
-        return customerServiceImpl.getCustomer(name, id);
+    Customer getCustomer(@PathVariable ("name") String name, @PathVariable("id") Integer id){
+        return customerService.getCustomer(name,id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable("id") String id) {
-        customerServiceImpl.deleteCustomer(id);
+        customerService.deleteCustomer(id);
     }
 
     @PostMapping(produces = "application/json", consumes = "application/json")
     public @ResponseBody Customer createCustomer(@RequestBody Customer customer) {
-        customerServiceImpl.createCustomer(customer);
+        customerService.createCustomer(customer);
         System.out.println(customer.getId());
         return customer;
     }
 
     @PutMapping(produces = "application/json", consumes = "application/json")
     public @ResponseBody Customer updateCustomer(@RequestBody Customer customer){
-        Customer updatedCustomer = customerServiceImpl.updateCustomer(customer);
+        Customer updatedCustomer = customerService.updateCustomer(customer);
         System.out.println(updatedCustomer);
         return updatedCustomer;
     }

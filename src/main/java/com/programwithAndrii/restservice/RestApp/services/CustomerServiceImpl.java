@@ -1,17 +1,22 @@
-package com.programwithAndrii.restservice.RestApp.Model;
-
-import com.programwithAndrii.restservice.RestApp.Controllers.Customer;
-import com.programwithAndrii.restservice.RestApp.Model.CustomerService;
+package com.programwithAndrii.restservice.RestApp.services;
+import com.programwithAndrii.restservice.RestApp.database.repo.CustomerRepository;
+import com.programwithAndrii.restservice.RestApp.models.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @Override
-    public Customer getCustomer(String name, String id)
-    {
-        Customer customer = new Customer();
-        return new Customer(customer.getName(), customer.getId());
+    public Customer getCustomer(String name, Integer id) {
+        Optional<com.programwithAndrii.restservice.RestApp.database.Customer> customerOptional
+                = customerRepository.findById(id);
+        return null;
     }
 
     @Override

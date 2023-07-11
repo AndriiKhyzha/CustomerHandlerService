@@ -1,23 +1,31 @@
-package com.programwithAndrii.restservice.RestApp.Controllers;
-
+package com.programwithAndrii.restservice.RestApp.database;
+import javax.persistence.*;
+@Table
+@Entity(name = "address")
 public class Address {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String country;
+
     private String city;
+
     private String street;
+
     private String number;
 
-    public Address(){
-
-    }
-
-    public Address(String country, String city, String street, String number) {
+    public Address (Integer id,String country, String city, String street, String number){
+        this.id = id;
         this.country = country;
         this.city = city;
         this.street = street;
         this.number = number;
     }
 
+    public Integer getId(){
+        return id;
+    }
     public String getCountry(){
         return country;
     }
