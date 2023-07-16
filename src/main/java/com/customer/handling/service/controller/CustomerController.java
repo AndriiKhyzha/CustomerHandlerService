@@ -1,20 +1,21 @@
-package com.programwithAndrii.restservice.RestApp.controllers;
-import com.programwithAndrii.restservice.RestApp.models.Customer;
-import com.programwithAndrii.restservice.RestApp.services.CustomerService;
+package com.customer.handling.service.controller;
+
+import com.customer.handling.service.services.CustomerService;
+import com.customer.handling.service.apimodel.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
-public class CustomerRestController {
+public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping(value = "/{name}/{id}", produces = "application/json")
-    public @ResponseBody
-    Customer getCustomer(@PathVariable ("name") String name, @PathVariable("id") Integer id){
-        return customerService.getCustomer(name,id);
+    @ResponseBody
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public Customer getCustomer(@PathVariable("id") Integer id){
+        return customerService.getCustomer(id);
     }
 
     @DeleteMapping("/{id}")

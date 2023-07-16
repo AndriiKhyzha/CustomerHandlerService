@@ -1,40 +1,36 @@
-package com.programwithAndrii.restservice.RestApp.database;
-import javax.persistence.*;
-@Table
-@Entity(name = "address")
+package com.customer.handling.service.apimodel;
+
 public class Address {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     private String country;
-
     private String city;
-
     private String street;
-
     private String number;
 
-    private Address address;
-
     public Address(){
-
     }
 
-    public Address (Integer id,String country, String city, String street, String number){
-        this.id = id;
+    public Address(String country, String city, String street, String number) {
         this.country = country;
         this.city = city;
         this.street = street;
         this.number = number;
     }
 
-    public Address getAddress(){
-        return address;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public Integer getId(){
-        return id;
+    public void setCity(){
+        this.city = city;
+    }
+
+    public void setStreet(){
+        this.street = street;
+    }
+
+    public void setNumber(){
+        this.number = number;
     }
     public String getCountry(){
         return country;

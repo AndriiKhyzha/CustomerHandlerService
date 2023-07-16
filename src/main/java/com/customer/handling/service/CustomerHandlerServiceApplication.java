@@ -1,18 +1,11 @@
-package com.programwithAndrii.restservice.RestApp;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+package com.customer.handling.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.IOException;
-import java.util.Properties;
-import java.util.logging.LogManager;
 
 @SpringBootApplication
-public class RestApplication {
+public class CustomerHandlerServiceApplication {
 
 //	public static final Logger logger = LoggerFactory.getLogger(RestAppApplication.class);
 
@@ -23,6 +16,6 @@ public class RestApplication {
 //		} catch (IOException e){
 //			System.err.println("Could not setup log configuration" + e.toString());
 //		}
-		SpringApplication.run(RestApplication.class, args);
+		SpringApplication.run(CustomerHandlerServiceApplication.class, args);
 	}
 }

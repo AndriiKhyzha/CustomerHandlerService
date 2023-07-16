@@ -1,4 +1,4 @@
-package com.programwithAndrii.restservice.RestApp.models;
+package com.customer.handling.service.apimodel;
 
 public class Customer {
 
@@ -15,7 +15,6 @@ public class Customer {
     }
 
     public Customer(){
-
     }
 
     public Customer(String name, String id){
