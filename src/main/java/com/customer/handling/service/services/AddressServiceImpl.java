@@ -19,7 +19,6 @@ public class AddressServiceImpl implements AddressService {
         AddressDB addressDB = addressOptional
                 .orElseThrow(() -> new RuntimeException("Address object with id:" + id + " not found"));
         // TODO: 16-Jul-23 read about Optional Java Util
-
         return new Address(addressDB.getCountry(), addressDB.getCity(), addressDB.getStreet(), addressDB.getNumber());
     }
 
@@ -34,11 +33,15 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void deleteAddress(Integer id){
         AddressDB addressDB = new AddressDB();
-
         addressRepository.delete(addressDB);
     }
 
-    public AddressDB updateAddress(AddressDB addressDB, Integer id){
-        return null;
+    @Override
+    public Address updateAddress(Address address, Integer id){
+        Optional<AddressDB> addressDBOptional = addressRepository.findById(id);
+        AddressDB findedaddressDB = addressDBOptional.orElseThrow(() ->new RuntimeException("Address object with id:" + id + " not found"));
+        AddressDB updateAddressDB = new AddressDB(address.getCountry(),address.getCity(),address.getStreet(),address.getNumber());
+        AddressDB updatedAddressDB = addressRepository.save(updateAddressDB);
+        return new Address(updatedAddressDB.getCountry(), updatedAddressDB.getCity(), updatedAddressDB.getStreet(), updatedAddressDB.getNumber());
     }
 }

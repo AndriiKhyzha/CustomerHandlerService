@@ -19,7 +19,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable("id") String id) {
+    public void deleteCustomer(@PathVariable("id") Integer id) {
         customerService.deleteCustomer(id);
     }
 
@@ -31,9 +31,9 @@ public class CustomerController {
     }
 
     @PutMapping(produces = "application/json", consumes = "application/json")
-    public @ResponseBody Customer updateCustomer(@RequestBody Customer customer){
-        Customer updatedCustomer = customerService.updateCustomer(customer);
-        System.out.println(updatedCustomer);
-        return updatedCustomer;
+    public @ResponseBody Customer updateCustomer(@RequestBody Customer customer, Integer id){
+//        Customer updatedCustomer = customerService.updateCustomer(customer);
+//        System.out.println(updatedCustomer);
+        return null;
     }
 }

@@ -3,7 +3,7 @@ package com.customer.handling.service.apimodel;
 public class Customer {
 
     private String name;
-    private String id;
+    private Integer id;
     private Address address;
 
     public void setAddress(Address address){
@@ -17,12 +17,12 @@ public class Customer {
     public Customer(){
     }
 
-    public Customer(String name, String id){
+    public Customer(Integer id,String name){
         this.name = name;
         this.id = id;
     }
 
-    public Customer(String name, String id, Address address) {
+    public Customer(String name, Integer id, Address address) {
         this.name = name;
         this.id = id;
         this.address = address;
@@ -32,7 +32,7 @@ public class Customer {
         this.name = name;
     }
 
-    public void setId(String id){
+    public void setId(Integer id){
         this.id = id;
     }
 
@@ -40,7 +40,7 @@ public class Customer {
         return name;
     }
 
-    public String getId(){
+    public Integer getId(){
         return id;
     }
 }
