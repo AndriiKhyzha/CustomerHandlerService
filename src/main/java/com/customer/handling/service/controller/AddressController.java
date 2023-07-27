@@ -1,20 +1,23 @@
 package com.customer.handling.service.controller;
 
 import com.customer.handling.service.apimodel.Address;
-import com.customer.handling.service.services.AddressServiceImpl;
+import com.customer.handling.service.services.AddressService;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Log4j
 @RestController
 @RequestMapping("/address")
 public class AddressController {
 
     @Autowired
-    private AddressServiceImpl addressService;
+    private AddressService addressService;
 
     @ResponseBody
-    @PostMapping(value = "/create", produces = "application/json")
-    public  Address createAddress(@RequestBody Address address){
+    @PostMapping(value = "/create", produces = "application/json", consumes = "application/json")
+    public Address createAddress(@RequestBody Address address){
+        log.info("get request body: " + address);
         return addressService.createAddress(address);
     }
 
@@ -27,5 +30,11 @@ public class AddressController {
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public void deleteAddress(@PathVariable("id") Integer id) {
         addressService.deleteAddress(id);
+    }
+
+    @ResponseBody
+    @PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
+    public Address updateAddress(@RequestBody Address address){
+        return addressService.updateAddress(address);
     }
 }

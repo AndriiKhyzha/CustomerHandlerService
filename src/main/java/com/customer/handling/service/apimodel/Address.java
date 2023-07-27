@@ -1,50 +1,18 @@
 package com.customer.handling.service.apimodel;
 
+import lombok.*;
+
+@ToString
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Address {
 
+    private Integer dbId;
     private String country;
     private String city;
     private String street;
     private String number;
-
-    public Address(){
-    }
-
-    public Address(String country, String city, String street, String number) {
-        this.country = country;
-        this.city = city;
-        this.street = street;
-        this.number = number;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setCity(){
-        this.city = city;
-    }
-
-    public void setStreet(){
-        this.street = street;
-    }
-
-    public void setNumber(){
-        this.number = number;
-    }
-    public String getCountry(){
-        return country;
-    }
-
-    public String getCity(){
-        return city;
-    }
-
-    public String getStreet(){
-        return street;
-    }
-
-    public String getNumber(){
-        return number;
-    }
 }

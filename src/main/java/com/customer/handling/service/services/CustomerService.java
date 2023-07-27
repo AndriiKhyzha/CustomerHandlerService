@@ -6,7 +6,7 @@ public interface CustomerService {
 
     Customer getCustomer(Integer id);
 
-    void deleteCustomer(String id);
+    void deleteCustomer(Integer id);
 
     Customer createCustomer(Customer customer);
 
