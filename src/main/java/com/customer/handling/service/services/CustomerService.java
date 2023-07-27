@@ -10,5 +10,5 @@ public interface CustomerService {
 
     Customer createCustomer(Customer customer);
 
-    Customer updateCustomer(Customer customer, Integer id);
+    Customer updateCustomer(Customer customer);
 }

@@ -1,46 +1,54 @@
 package com.customer.handling.service.services;
 
-import com.customer.handling.service.database.AddressDB;
+import com.customer.handling.service.apimodel.Customer;
 import com.customer.handling.service.database.CustomerDB;
 import com.customer.handling.service.database.repository.CustomerRepository;
-import com.customer.handling.service.apimodel.Customer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public Customer getCustomer(Integer id) {
-        Optional<CustomerDB> customerOptional = customerRepository.findById(id);
-        CustomerDB customerDB = customerOptional.orElseThrow(() -> new RuntimeException("Customer with id: "+ id + "not found")  );
-        return new Customer(customerDB.getId(),customerDB.getName());
-        // todo do same logic as get address -> done
+        CustomerDB customerDB = customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer with id: "+ id + "not found")  );
+        return Customer.builder()
+                .dbId(customerDB.getId())
+                .name(customerDB.getName())
+                .build();
     }
 
     @Override
     public Customer createCustomer(Customer customer) {
-        CustomerDB createCustomerDB = new CustomerDB(customer.getId(),customer.getName());
+        CustomerDB createCustomerDB = new CustomerDB(customer.getDbId(),customer.getName());
         CustomerDB createdCustomerDB = customerRepository.save(createCustomerDB);
-        return new Customer(createdCustomerDB.getId(),createdCustomerDB.getName());
+        return Customer.builder()
+                .dbId(createdCustomerDB.getId())
+                .name(createdCustomerDB.getName())
+                .build();
     }
 
     @Override
-    public Customer updateCustomer(Customer customer, Integer id){
-        Optional <CustomerDB> getCustomerDB = customerRepository.findById(id);
-        CustomerDB customerDB = getCustomerDB.orElseThrow(() -> new RuntimeException("CustomerDb with id: " + id + "not found"));
-        CustomerDB updateCustomerDB = new CustomerDB(customer.getId(), customer.getName());
-        CustomerDB updatedCustomerDB = customerRepository.save(updateCustomerDB);
-        return new Customer(updatedCustomerDB.getId(), updatedCustomerDB.getName());
+    public Customer updateCustomer(Customer customer){
+        CustomerDB customerDB = customerRepository.findById(customer.getDbId())
+                .orElseThrow(() -> new RuntimeException("CustomerDb with id: " + customer.getDbId() + "not found"));
+        customerDB.setName(customer.getName());
+
+        CustomerDB updatedCustomerDB = customerRepository.save(customerDB);
+
+        return Customer.builder()
+                .dbId(updatedCustomerDB.getId())
+                .name(updatedCustomerDB.getName())
+                .build();
     }
 
     @Override
     public void deleteCustomer(Integer id){
-        System.out.println( "deleted id customer" + id);
+        customerRepository.deleteById(id);
     }
 }

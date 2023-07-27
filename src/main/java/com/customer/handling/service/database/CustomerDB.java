@@ -1,7 +1,13 @@
 package com.customer.handling.service.database;
 
+import lombok.*;
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 @Entity
 @Table(name = "customer")
 public class CustomerDB {
@@ -9,30 +15,5 @@ public class CustomerDB {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
-
-    public CustomerDB() {
-    }
-
-    public CustomerDB(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

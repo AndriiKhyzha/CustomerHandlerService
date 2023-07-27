@@ -23,17 +23,16 @@ public class CustomerController {
         customerService.deleteCustomer(id);
     }
 
-    @PostMapping(produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/create", produces = "application/json", consumes = "application/json")
     public @ResponseBody Customer createCustomer(@RequestBody Customer customer) {
         customerService.createCustomer(customer);
-        System.out.println(customer.getId());
+        System.out.println(customer.getDbId());
         return customer;
     }
 
-    @PutMapping(produces = "application/json", consumes = "application/json")
-    public @ResponseBody Customer updateCustomer(@RequestBody Customer customer, Integer id){
-//        Customer updatedCustomer = customerService.updateCustomer(customer);
-//        System.out.println(updatedCustomer);
-        return null;
+    @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
+    public @ResponseBody Customer updateCustomer(@RequestBody Customer customer){
+        customerService.updateCustomer(customer);
+        return customer;
     }
 }
