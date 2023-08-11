@@ -2,6 +2,7 @@ package com.customer.handling.service.apimodel;
 
 import lombok.*;
 
+@ToString
 @Builder
 @Getter
 @Setter

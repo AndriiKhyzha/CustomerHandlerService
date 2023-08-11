@@ -26,7 +26,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer createCustomer(Customer customer) {
         CustomerDB createCustomerDB = new CustomerDB(customer.getDbId(),customer.getName());
+
         CustomerDB createdCustomerDB = customerRepository.save(createCustomerDB);
+
         return Customer.builder()
                 .dbId(createdCustomerDB.getId())
                 .name(createdCustomerDB.getName())

@@ -28,8 +28,8 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Address createAddress(Address address) {
         AddressDB addressDB = AddressDB.builder()
-                .city(address.getCity())
                 .country(address.getCountry())
+                .city(address.getCity())
                 .street(address.getStreet())
                 .number(address.getNumber())
                 .build();
