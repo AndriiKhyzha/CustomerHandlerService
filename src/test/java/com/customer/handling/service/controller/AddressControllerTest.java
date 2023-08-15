@@ -111,8 +111,8 @@ class AddressControllerTest {
     }
 
     @Test
-    void updateAddress() {
-// given
+    void testUpdateAddress() {
+        // given
         Integer id = 639;
 
         Address mockedAddressForUpdate = Address.builder()
@@ -123,7 +123,6 @@ class AddressControllerTest {
                 .number(NUMBER)
                 .build();
 
-//        when
         when(addressService.updateAddress(any(Address.class))).thenReturn(mockedAddressForUpdate);
 
         Address requestAddress = Address.builder()
@@ -134,19 +133,20 @@ class AddressControllerTest {
                 .number(NUMBER)
                 .build();
 
+        //when
         Address actualAddress = addressController.updateAddress(requestAddress);
 
-//        then
+        //then
         verify(addressService, times(1)).updateAddress(addressArgumentCaptor.capture());
         Address capturedAddress = addressArgumentCaptor.getValue();
-
+        //
         assertEquals(id, capturedAddress.getDbId());
         assertEquals(COUNTRY, mockedAddressForUpdate.getCountry());
         assertEquals(CITY, mockedAddressForUpdate.getCity());
         assertEquals(STREET, mockedAddressForUpdate.getStreet());
         assertEquals(NUMBER, mockedAddressForUpdate.getNumber());
 
-//
+        //
         assertEquals(mockedAddressForUpdate.getDbId(), actualAddress.getDbId());
         assertEquals(mockedAddressForUpdate.getCountry(), actualAddress.getCountry());
         assertEquals(mockedAddressForUpdate.getCity(), actualAddress.getCity());

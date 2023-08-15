@@ -18,6 +18,7 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() -> new RuntimeException("Address object with id:" + id + " not found"));
 
         return Address.builder()
+                .dbId(addressDB.getId())
                 .country(addressDB.getCountry())
                 .city(addressDB.getCity())
                 .street(addressDB.getStreet())
