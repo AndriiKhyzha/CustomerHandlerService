@@ -16,7 +16,7 @@ public class AddressController {
 
     @ResponseBody
     @PostMapping(value = "/create", produces = "application/json", consumes = "application/json")
-    public Address createAddress(@RequestBody Address address){
+    public Address createAddress(@RequestBody Address address) {
         log.info("get request body: " + address);
         return addressService.createAddress(address);
     }

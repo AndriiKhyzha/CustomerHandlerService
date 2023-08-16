@@ -25,14 +25,11 @@ public class CustomerController {
 
     @PostMapping(value = "/create", produces = "application/json", consumes = "application/json")
     public @ResponseBody Customer createCustomer(@RequestBody Customer customer) {
-        customerService.createCustomer(customer);
-        System.out.println(customer.getDbId());
-        return customer;
+        return customerService.createCustomer(customer);
     }
 
     @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
     public @ResponseBody Customer updateCustomer(@RequestBody Customer customer){
-        customerService.updateCustomer(customer);
-        return customer;
+        return customerService.updateCustomer(customer);
     }
 }

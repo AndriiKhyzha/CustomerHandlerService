@@ -18,6 +18,7 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() -> new RuntimeException("Address object with id:" + id + " not found"));
 
         return Address.builder()
+                .dbId(addressDB.getId())
                 .country(addressDB.getCountry())
                 .city(addressDB.getCity())
                 .street(addressDB.getStreet())
@@ -28,8 +29,8 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Address createAddress(Address address) {
         AddressDB addressDB = AddressDB.builder()
-                .city(address.getCity())
                 .country(address.getCountry())
+                .city(address.getCity())
                 .street(address.getStreet())
                 .number(address.getNumber())
                 .build();
