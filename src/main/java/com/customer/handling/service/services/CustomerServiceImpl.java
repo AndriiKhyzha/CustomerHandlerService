@@ -15,18 +15,18 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
+    private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+
     @Override
     public Customer getCustomer(Integer id) {
         CustomerDB customerDB = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer with id: "+ id + "not found")  );
 
-        return Mappers.getMapper(CustomerMapper.class).mapToCustomer(customerDB);
+        return customerMapper.mapToCustomer(customerDB);
     }
 
     @Override
     public Customer createCustomer(Customer customer) {
-        CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
-
         CustomerDB createdCustomerDB = customerRepository.save(customerMapper.mapToCustomerDB(customer));
 
         return customerMapper.mapToCustomer(createdCustomerDB);
@@ -34,8 +34,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer updateCustomer(Customer customer) {
-        CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
-
         CustomerDB customerDB = customerRepository.findById(customer.getDbId())
                 .orElseThrow(() -> new RuntimeException("CustomerDb with id: " + customer.getDbId() + "not found"));
 

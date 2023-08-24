@@ -9,17 +9,56 @@ import org.mapstruct.*;
 @Mapper
 public interface CustomerMapper {
 
-    @Mapping(target = "id", source = "dbId")
-    AddressDB mapToAddress(Address address);
+    @Mappings({
+            @Mapping(target = "id", source = "dbId"),
+            @Mapping(target = "country", source = "country"),
+            @Mapping(target = "city", source = "city"),
+            @Mapping(target = "street", source = "street"),
+            @Mapping(target = "number", source = "number")
+    })
+    AddressDB mapToAddressDB(Address address);
 
-    @Mapping(target = "dbId", source = "id")
-    Address mapToAddressDB(AddressDB addressDB);
+    @Mappings({
+            @Mapping(target = "dbId", source = "id"),
+            @Mapping(target = "country", source = "country"),
+            @Mapping(target = "city", source = "city"),
+            @Mapping(target = "street", source = "street"),
+            @Mapping(target = "number", source = "number")
+    })
+    Address mapToAddress(AddressDB addressDB);
 
-    @Mapping(target = "id", source = "dbId")
+    @Mappings({
+            @Mapping(target = "id" , source = "addressDB.id"),
+            @Mapping(target = "country" , ignore = true),
+            @Mapping(target = "city" , ignore = true),
+            @Mapping(target = "street" , ignore = true),
+            @Mapping(target = "number" , ignore = true)
+    })
+    AddressDB mapToAddressDB(AddressDB addressDB, Address address);
+
+    @AfterMapping
+    default void mapAddressDBAfterMapping(@MappingTarget AddressDB.AddressDBBuilder addressDBBuilder,
+                                          AddressDB addressDB, Address address) {
+        addressDBBuilder.country(address.getCountry() == null || address.getCountry().isEmpty()
+                ? addressDB.getCountry() : address.getCountry());
+        addressDBBuilder.city(address.getCity() == null || address.getCity().isEmpty()
+                ? addressDB.getCity() : address.getCity());
+        addressDBBuilder.street(addressDB.getStreet() == null || address.getStreet().isEmpty()
+                ? addressDB.getStreet() : address.getStreet());
+        addressDBBuilder.number(address.getNumber() == null || address.getNumber().isEmpty()
+                ? addressDB.getNumber() : address.getNumber());
+    }
+
+
+   @Mappings({
+           @Mapping(target = "id", source = "dbId"),
+           @Mapping(target = "name", source = "customer.name")
+   })
     CustomerDB mapToCustomerDB(Customer customer);
 
     @Mappings({
-            @Mapping(target = "dbId", source = "id")
+            @Mapping(target = "dbId", source = "customerDB.id"),
+            @Mapping(target = "name", source = "customerDB.name")
     })
     Customer mapToCustomer(CustomerDB customerDB);
 
@@ -30,7 +69,7 @@ public interface CustomerMapper {
     CustomerDB mapToCustomerDb(CustomerDB customerDB, Customer customer);
 
     @AfterMapping
-    default  void mapCustomerDBAfterMapping(@MappingTarget CustomerDB.CustomerDBBuilder customerDBBuilder,
+    default void mapCustomerDBAfterMapping(@MappingTarget CustomerDB.CustomerDBBuilder customerDBBuilder,
                                         CustomerDB customerDB, Customer customer) {
         customerDBBuilder.name(customer.getName() == null || customer.getName().isEmpty()
                 ? customerDB.getName() : customer.getName()
