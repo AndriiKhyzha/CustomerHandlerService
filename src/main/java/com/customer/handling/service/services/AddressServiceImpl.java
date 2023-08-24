@@ -3,7 +3,9 @@ package com.customer.handling.service.services;
 import com.customer.handling.service.apimodel.Address;
 import com.customer.handling.service.database.AddressDB;
 import com.customer.handling.service.database.repository.AddressRepository;
+import com.customer.handling.service.mapping.CustomerMapper;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,37 +15,20 @@ public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
 
+    private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
+
     public Address getAddress(Integer id)  {
         AddressDB addressDB = addressRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Address object with id:" + id + " not found"));
 
-        return Address.builder()
-                .dbId(addressDB.getId())
-                .country(addressDB.getCountry())
-                .city(addressDB.getCity())
-                .street(addressDB.getStreet())
-                .number(addressDB.getNumber())
-                .build();
+        return customerMapper.mapToAddress(addressDB);
     }
 
     @Override
     public Address createAddress(Address address) {
-        AddressDB addressDB = AddressDB.builder()
-                .country(address.getCountry())
-                .city(address.getCity())
-                .street(address.getStreet())
-                .number(address.getNumber())
-                .build();
+        AddressDB createdAddressDB = addressRepository.save(customerMapper.mapToAddressDB(address));
 
-        AddressDB createdAddressDB = addressRepository.save(addressDB);
-
-        return Address.builder()
-                .dbId(createdAddressDB.getId())
-                .country(createdAddressDB.getCountry())
-                .city(createdAddressDB.getCity())
-                .street(createdAddressDB.getStreet())
-                .number(createdAddressDB.getNumber())
-                .build();
+        return customerMapper.mapToAddress(createdAddressDB);
     }
 
     @Override
@@ -56,19 +41,8 @@ public class AddressServiceImpl implements AddressService {
         AddressDB findedaddressDB = addressRepository.findById(address.getDbId()).
                 orElseThrow(() -> new RuntimeException("Address object with id:" + address.getDbId() + " not found"));
 
-        findedaddressDB.setCountry(address.getCountry());
-        findedaddressDB.setCity(address.getCity());
-        findedaddressDB.setStreet(address.getStreet());
-        findedaddressDB.setNumber(address.getNumber());
+        AddressDB updatedAddressDB = addressRepository.save(customerMapper.mapToAddressDB(findedaddressDB, address));
 
-        AddressDB updatedAddressDB = addressRepository.save(findedaddressDB);
-
-        return Address.builder()
-                .dbId(updatedAddressDB.getId())
-                .country(updatedAddressDB.getCountry())
-                .city(updatedAddressDB.getCity())
-                .street(updatedAddressDB.getStreet())
-                .number(updatedAddressDB.getNumber())
-                .build();
+        return customerMapper.mapToAddress(updatedAddressDB);
     }
 }
