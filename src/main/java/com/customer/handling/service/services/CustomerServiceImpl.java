@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer updateCustomer(Customer customer) {
         CustomerDB customerDB = customerRepository.findById(customer.getDbId())
-                .orElseThrow(() -> new RuntimeException("CustomerDb with id: " + customer.getDbId() + "not found"));
+                .orElseThrow(() -> new RuntimeException("CustomerDb with id: " + customer.getDbId() + " not found"));
 
         CustomerDB updatedCustomerDB = customerRepository
                 .save(customerMapper.mapToCustomerDb(customerDB, customer));

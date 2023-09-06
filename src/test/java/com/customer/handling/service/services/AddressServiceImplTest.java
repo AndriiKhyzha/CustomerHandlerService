@@ -116,12 +116,14 @@ class AddressServiceImplTest {
         String streetBefore = "strasse";
         String numberBefore = "369";
 
-        AddressDB addressDBBefore = new AddressDB();
-        addressDBBefore.setId(ID);
-        addressDBBefore.setCountry(countryBefore);
-        addressDBBefore.setCity(cityBefore);
-        addressDBBefore.setStreet(streetBefore);
-        addressDBBefore.setNumber(numberBefore);
+        AddressDB addressDBBefore = AddressDB.builder()
+                .id(ID)
+                .country(countryBefore)
+                .city(cityBefore)
+                .street(streetBefore)
+                .number(numberBefore)
+                .build();
+
         when(addressRepository.findById(eq(ID))).thenReturn(Optional.of(addressDBBefore));
 
         AddressDB updatedAddress = AddressDB.builder()
