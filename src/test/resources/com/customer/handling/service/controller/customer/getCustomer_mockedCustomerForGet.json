@@ -1,0 +1,11 @@
+{
+  "dbId": "25",
+  "name": "Yarema",
+  "address": {
+    "dbId": 73,
+    "country": "Canada",
+    "city": "Calgary",
+    "street": "Calgary Ave.",
+    "number": "149"
+  }
+}

@@ -1,6 +1,7 @@
 package com.customer.handling.service.database;
 
 import lombok.*;
+
 import javax.persistence.*;
 
 @NoArgsConstructor

@@ -18,7 +18,7 @@
 	<properties>
 		<java.version>17.0.8</java.version>
 		<jackson.version>2.10.1</jackson.version>
-		<junit.jupiter.version>5.9.1</junit.jupiter.version>
+		<junit.jupiter.version>5.7.1</junit.jupiter.version>
 		<junit.platform.version>1.9.1</junit.platform.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.26</org.projectlombok.version>

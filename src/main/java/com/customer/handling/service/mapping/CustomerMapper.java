@@ -39,14 +39,14 @@ public interface CustomerMapper {
     @AfterMapping
     default void mapAddressDBAfterMapping(@MappingTarget AddressDB.AddressDBBuilder addressDBBuilder,
                                           AddressDB addressDB, Address address) {
-        addressDBBuilder.country(address.getCountry() == null || address.getCountry().isEmpty()
-                ? addressDB.getCountry() : address.getCountry());
-        addressDBBuilder.city(address.getCity() == null || address.getCity().isEmpty()
-                ? addressDB.getCity() : address.getCity());
-        addressDBBuilder.street(addressDB.getStreet() == null || address.getStreet().isEmpty()
-                ? addressDB.getStreet() : address.getStreet());
-        addressDBBuilder.number(address.getNumber() == null || address.getNumber().isEmpty()
-                ? addressDB.getNumber() : address.getNumber());
+        addressDBBuilder.country(address.getCountry() != null && !address.getCountry().isEmpty() && !address.getCountry().isBlank()
+                ? address.getCountry() : addressDB.getCountry());
+        addressDBBuilder.city(address.getCity() != null && !address.getCity().isEmpty() && !address.getCity().isBlank()
+                ? address.getCity() : addressDB.getCity());
+        addressDBBuilder.street(address.getStreet() != null && !address.getStreet().isEmpty() && !address.getStreet().isBlank()
+                ? address.getStreet() : addressDB.getStreet());
+        addressDBBuilder.number(address.getNumber() != null && !address.getNumber().isEmpty() && !address.getNumber().isBlank()
+                ? address.getNumber() : addressDB.getNumber());
     }
 
 
@@ -71,8 +71,8 @@ public interface CustomerMapper {
     @AfterMapping
     default void mapCustomerDBAfterMapping(@MappingTarget CustomerDB.CustomerDBBuilder customerDBBuilder,
                                         CustomerDB customerDB, Customer customer) {
-        customerDBBuilder.name(customer.getName() == null || customer.getName().isEmpty()
-                ? customerDB.getName() : customer.getName()
+        customerDBBuilder.name(customer.getName() != null && !customer.getName().isEmpty() && !customer.getName().isBlank()
+                ? customer.getName() : customerDB.getName()
         );
     }
 }

@@ -1,9 +1,8 @@
 package com.customer.handling.service.controller;
 
-import com.customer.handling.service.apimodel.Address;
+import com.customer.handling.service.TestUtils;
 import com.customer.handling.service.apimodel.Customer;
 import com.customer.handling.service.services.CustomerService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -21,8 +20,6 @@ import static org.mockito.Mockito.*;
 class CustomerControllerTest {
 
     private static final Integer ID = 25;
-    private static final String NAME = "Yarema";
-    private static Address ADDRESS;
 
     @Mock
     private CustomerService customerService;
@@ -33,20 +30,11 @@ class CustomerControllerTest {
     @InjectMocks
     private CustomerController customerController;
 
-    @BeforeEach
-    void setUp() {
-        ADDRESS = new Address();
-    }
-
     @Test
     void getCustomer() {
         //given
-        Customer mockedCustomerForGet = Customer.builder()
-                .dbId(ID)
-                .name(NAME)
-                .address(ADDRESS)
-                .build();
-
+        Customer mockedCustomerForGet = TestUtils.readValue(this.getClass(), Customer.class,
+                "com/customer/handling/service/controller/customer/getCustomer_mockedCustomerForGet.json");
         when(customerService.getCustomer(eq(ID))).thenReturn(mockedCustomerForGet);
 
         //when
@@ -54,9 +42,13 @@ class CustomerControllerTest {
 
         //then
         verify(customerService,times(1)).getCustomer(eq(ID));
-        assertEquals(ID, actualCustomer.getDbId());
-        assertEquals(NAME, actualCustomer.getName());
-        assertEquals(ADDRESS, actualCustomer.getAddress());
+        assertEquals(mockedCustomerForGet.getDbId(), actualCustomer.getDbId());
+        assertEquals(mockedCustomerForGet.getName(), actualCustomer.getName());
+        assertEquals(mockedCustomerForGet.getAddress().getDbId(), actualCustomer.getAddress().getDbId());
+        assertEquals(mockedCustomerForGet.getAddress().getCountry(), actualCustomer.getAddress().getCountry());
+        assertEquals(mockedCustomerForGet.getAddress().getCity(), actualCustomer.getAddress().getCity());
+        assertEquals(mockedCustomerForGet.getAddress().getStreet(), actualCustomer.getAddress().getStreet());
+        assertEquals(mockedCustomerForGet.getAddress().getNumber(), actualCustomer.getAddress().getNumber());
     }
 
     @Test
@@ -64,23 +56,18 @@ class CustomerControllerTest {
         //when
         customerController.deleteCustomer(ID);
         //then
-        verify(customerService, times(1)).deleteCustomer(ID);
+        verify(customerService).deleteCustomer(ID);
     }
 
     @Test
     void createCustomer() {
         //given
-        Customer createdCustomer = Customer.builder()
-                .dbId(ID)
-                .name(NAME)
-                .address(ADDRESS)
-                .build();
+        Customer createdCustomer = TestUtils.readValue(this.getClass(), Customer.class,
+                "com/customer/handling/service/controller/customer/createCustomer_createdCustomer.json");
         when(customerService.createCustomer(any(Customer.class))).thenReturn(createdCustomer);
 
-        Customer requestCustomer = Customer.builder()
-                .name(NAME)
-                .address(ADDRESS)
-                .build();
+        Customer requestCustomer = TestUtils.readValue(this.getClass(), Customer.class,
+                "com/customer/handling/service/controller/customer/createCustomer_requestCustomer.json");
 
         //when
         Customer actualCustomer = customerController.createCustomer(requestCustomer);
@@ -90,8 +77,8 @@ class CustomerControllerTest {
         //
         Customer capturedCustomer = customerArgumentCaptor.getValue();
         assertNull(capturedCustomer.getDbId());
-        assertEquals(NAME, capturedCustomer.getName());
-        assertEquals(ADDRESS, capturedCustomer.getAddress());
+        assertEquals(requestCustomer.getName(), capturedCustomer.getName());
+        assertEquals(requestCustomer.getAddress(), capturedCustomer.getAddress());
 
         //assert returned created customer in database
         assertEquals(createdCustomer.getDbId(), actualCustomer.getDbId());
@@ -102,33 +89,27 @@ class CustomerControllerTest {
     @Test
     void updateCustomer() {
         //given
-        Customer updatedCustomer = Customer.builder()
-                .dbId(ID)
-                .name(NAME)
-                .address(ADDRESS)
-                .build();
+        Customer updatedCustomer = TestUtils.readValue(this.getClass(), Customer.class,
+                "com/customer/handling/service/controller/customer/updateCustomer_updatedCustomer.json");
         when(customerService.updateCustomer(any(Customer.class))).thenReturn(updatedCustomer);
 
-        Customer requestCustomer = Customer.builder()
-                .dbId(ID)
-                .name(NAME)
-                .address(ADDRESS)
-                .build();
+        Customer requestCustomer = TestUtils.readValue(this.getClass(), Customer.class,
+                "com/customer/handling/service/controller/customer/updateCustomer_requestCustomer.json");
 
         //when
         Customer actualCustomer = customerController.updateCustomer(requestCustomer);
 
         //then
-        verify(customerService,times(1)).updateCustomer(customerArgumentCaptor.capture());
+        verify(customerService).updateCustomer(customerArgumentCaptor.capture());
         Customer capturedCustomer = customerArgumentCaptor.getValue();
         //
-        assertEquals(ID, capturedCustomer.getDbId());
-        assertEquals(NAME,capturedCustomer.getName());
-        assertEquals(ADDRESS, capturedCustomer.getAddress());
+        assertEquals(requestCustomer.getDbId(), capturedCustomer.getDbId());
+        assertEquals(requestCustomer.getName(), capturedCustomer.getName());
+        assertEquals(requestCustomer.getAddress(), capturedCustomer.getAddress());
 
         //assert returned updated customer in database
-        assertEquals(ID, actualCustomer.getDbId());
-        assertEquals(NAME, actualCustomer.getName());
-        assertEquals(ADDRESS, actualCustomer.getAddress());
+        assertEquals(updatedCustomer.getDbId(), actualCustomer.getDbId());
+        assertEquals(updatedCustomer.getName(), actualCustomer.getName());
+        assertEquals(updatedCustomer.getAddress(), actualCustomer.getAddress());
     }
 }
