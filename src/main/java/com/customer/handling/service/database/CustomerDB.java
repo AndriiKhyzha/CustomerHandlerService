@@ -1,7 +1,7 @@
 package com.customer.handling.service.database;
 
-import com.customer.handling.service.apimodel.Address;
 import lombok.*;
+
 import javax.persistence.*;
 
 @NoArgsConstructor

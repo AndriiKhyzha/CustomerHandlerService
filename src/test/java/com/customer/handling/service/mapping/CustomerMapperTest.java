@@ -23,7 +23,6 @@ public class CustomerMapperTest {
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
 
     private final Integer ID = 13;
-    private final String NAME = "Parker";
 
     @Test
     void mapToAddressDB() {
