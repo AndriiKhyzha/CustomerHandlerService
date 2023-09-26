@@ -1,5 +1,6 @@
 package com.customer.handling.service.services;
 
+import com.customer.handling.service.TestUtils;
 import com.customer.handling.service.apimodel.Address;
 import com.customer.handling.service.database.AddressDB;
 import com.customer.handling.service.database.repository.AddressRepository;
@@ -21,10 +22,6 @@ import static org.mockito.Mockito.*;
 class AddressServiceImplTest {
 
     private static final Integer ID = 13;
-    private static final String COUNTRY = "Ukraine";
-    private static final String CITY = "Myrhorod";
-    private static final String STREET = "Komyshnianska";
-    private static final String NUMBER = "133";
 
     @Mock
     private AddressRepository addressRepository;
@@ -38,13 +35,8 @@ class AddressServiceImplTest {
     @Test
     void getAddress() {
         //given
-        AddressDB mockedGetAddressDB = AddressDB.builder()
-                .id(ID)
-                .country(COUNTRY)
-                .city(CITY)
-                .street(STREET)
-                .number(NUMBER)
-                .build();
+        AddressDB mockedGetAddressDB = TestUtils.readValue(this.getClass(), AddressDB.class,
+                "com/customer/handling/service/services/address/getAddress_mockedGetAddressDB.json");
         when(addressRepository.findById(eq(ID))).thenReturn(Optional.of(mockedGetAddressDB));
 
         //when
@@ -53,51 +45,41 @@ class AddressServiceImplTest {
         //then
         verify(addressRepository).findById(eq(ID));
 
-        assertEquals(ID, actualAddress.getDbId());
-        assertEquals(COUNTRY, actualAddress.getCountry());
-        assertEquals(CITY, actualAddress.getCity());
-        assertEquals(STREET, actualAddress.getStreet());
-        assertEquals(NUMBER, actualAddress.getNumber());
+        assertEquals(mockedGetAddressDB.getId(), actualAddress.getDbId());
+        assertEquals(mockedGetAddressDB.getCountry(), actualAddress.getCountry());
+        assertEquals(mockedGetAddressDB.getCity(), actualAddress.getCity());
+        assertEquals(mockedGetAddressDB.getStreet(), actualAddress.getStreet());
+        assertEquals(mockedGetAddressDB.getNumber(), actualAddress.getNumber());
     }
 
     @Test
     void createAddress() {
         //given
-        Address addressToCreate = Address.builder()
-                .country(COUNTRY)
-                .city(CITY)
-                .street(STREET)
-                .number(NUMBER)
-                .build();
+        Address addressToCreate = TestUtils.readValue(this.getClass(), Address.class,
+                "com/customer/handling/service/services/address/createAddress_addressToCreate.json");
 
-        AddressDB createdAddress = AddressDB.builder()
-                .id(ID)
-                .country(COUNTRY)
-                .city(CITY)
-                .street(STREET)
-                .number(NUMBER)
-                .build();
-        when(addressRepository.save(any(AddressDB.class))).thenReturn(createdAddress);
+        AddressDB createdAddressDB = TestUtils.readValue(this.getClass(), AddressDB.class,
+                "com/customer/handling/service/services/address/createAddress_createdAddressDB.json");
 
+        when(addressRepository.save(any(AddressDB.class))).thenReturn(createdAddressDB);
         //when
         Address actualAddress = addressServiceImpl.createAddress(addressToCreate);
-
         //then
         verify(addressRepository).save(addressDBArgumentCaptor.capture());
         //check captured values in DB save method
         AddressDB capturedAddressDB = addressDBArgumentCaptor.getValue();
         assertNull(capturedAddressDB.getId());
-        assertEquals(createdAddress.getCountry(), capturedAddressDB.getCountry());
-        assertEquals(createdAddress.getCity(), capturedAddressDB.getCity());
-        assertEquals(createdAddress.getStreet(), capturedAddressDB.getStreet());
-        assertEquals(createdAddress.getNumber(), capturedAddressDB.getNumber());
+        assertEquals(createdAddressDB.getCountry(), capturedAddressDB.getCountry());
+        assertEquals(createdAddressDB.getCity(), capturedAddressDB.getCity());
+        assertEquals(createdAddressDB.getStreet(), capturedAddressDB.getStreet());
+        assertEquals(createdAddressDB.getNumber(), capturedAddressDB.getNumber());
 
         //comparing createdDB Object values with actual tested method return Object values
-        assertEquals(createdAddress.getId(), actualAddress.getDbId());
-        assertEquals(createdAddress.getCountry(), actualAddress.getCountry());
-        assertEquals(createdAddress.getCity(), actualAddress.getCity());
-        assertEquals(createdAddress.getStreet(), actualAddress.getStreet());
-        assertEquals(createdAddress.getNumber(), actualAddress.getNumber());
+        assertEquals(createdAddressDB.getId(), actualAddress.getDbId());
+        assertEquals(createdAddressDB.getCountry(), actualAddress.getCountry());
+        assertEquals(createdAddressDB.getCity(), actualAddress.getCity());
+        assertEquals(createdAddressDB.getStreet(), actualAddress.getStreet());
+        assertEquals(createdAddressDB.getNumber(), actualAddress.getNumber());
     }
 
     @Test
@@ -111,37 +93,17 @@ class AddressServiceImplTest {
     @Test
     void updateAddress() {
         //given
-        String countryBefore = "Germany";
-        String cityBefore = "Berlin";
-        String streetBefore = "strasse";
-        String numberBefore = "369";
-
-        AddressDB addressDBBefore = AddressDB.builder()
-                .id(ID)
-                .country(countryBefore)
-                .city(cityBefore)
-                .street(streetBefore)
-                .number(numberBefore)
-                .build();
+        AddressDB addressDBBefore = TestUtils.readValue(this.getClass(), AddressDB.class,
+                "com/customer/handling/service/services/address/updateAddress_addressDBBefore.json");
 
         when(addressRepository.findById(eq(ID))).thenReturn(Optional.of(addressDBBefore));
 
-        AddressDB updatedAddress = AddressDB.builder()
-                .id(ID)
-                .country(COUNTRY)
-                .city(CITY)
-                .street(STREET)
-                .number(NUMBER)
-                .build();
-        when(addressRepository.save(any(AddressDB.class))).thenReturn(updatedAddress);
+        AddressDB updatedAddressDB = TestUtils.readValue(this.getClass(), AddressDB.class,
+                "com/customer/handling/service/services/address/updateAddress_updatedAddressDB.json");
+        when(addressRepository.save(any(AddressDB.class))).thenReturn(updatedAddressDB);
 
-        Address addressToUpdate = Address.builder()
-                .dbId(ID)
-                .country(COUNTRY)
-                .city(CITY)
-                .street(STREET)
-                .number(NUMBER)
-                .build();
+        Address addressToUpdate = TestUtils.readValue(this.getClass(), Address.class,
+                "com/customer/handling/service/services/address/updateAddress_addressToUpdate.json");
 
         //when
         Address actualAddress =  addressServiceImpl.updateAddress(addressToUpdate);
@@ -152,11 +114,11 @@ class AddressServiceImplTest {
         verify(addressRepository).save(addressDBArgumentCaptor.capture());
         AddressDB capturedAddressDB = addressDBArgumentCaptor.getValue();
         //check values in Object for updating
-        assertEquals(ID, capturedAddressDB.getId());
-        assertEquals(COUNTRY, capturedAddressDB.getCountry());
-        assertEquals(CITY, capturedAddressDB.getCity());
-        assertEquals(STREET, capturedAddressDB.getStreet());
-        assertEquals(NUMBER, capturedAddressDB.getNumber());
+        assertEquals(updatedAddressDB.getId(), capturedAddressDB.getId());
+        assertEquals(updatedAddressDB.getCountry(), capturedAddressDB.getCountry());
+        assertEquals(updatedAddressDB.getCity(), capturedAddressDB.getCity());
+        assertEquals(updatedAddressDB.getStreet(), capturedAddressDB.getStreet());
+        assertEquals(updatedAddressDB.getNumber(), capturedAddressDB.getNumber());
 
         //check actual address with was updated
         assertEquals(addressToUpdate.getDbId(), actualAddress.getDbId());

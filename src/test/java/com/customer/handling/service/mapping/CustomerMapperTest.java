@@ -1,10 +1,10 @@
-package com.customer.handling.service.services.mapping;
+package com.customer.handling.service.mapping;
 
+import com.customer.handling.service.TestUtils;
 import com.customer.handling.service.apimodel.Address;
 import com.customer.handling.service.apimodel.Customer;
 import com.customer.handling.service.database.AddressDB;
 import com.customer.handling.service.database.CustomerDB;
-import com.customer.handling.service.mapping.CustomerMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,47 +24,33 @@ public class CustomerMapperTest {
 
     private final Integer ID = 13;
     private final String NAME = "Parker";
-    private final String COUNTRY = "Ukraine";
-    private final String CITY = "Kharkiv";
-    private final String STREET = "Luhanska";
-    private final String NUMBER = "133";
 
     @Test
     void mapToAddressDB() {
-        Address mappedAddress = Address.builder()
-                .dbId(ID)
-                .country(COUNTRY)
-                .city(CITY)
-                .street(STREET)
-                .number(NUMBER)
-                .build();
+        Address mappedAddress = TestUtils.readValue(this.getClass(), Address.class,
+                "com/customer/handling/service/mapping/mapToAddressDB_mappedAddress.json");
 
         AddressDB actualAddressDB = customerMapper.mapToAddressDB(mappedAddress);
 
-        assertEquals(ID, actualAddressDB.getId());
-        assertEquals(COUNTRY, actualAddressDB.getCountry());
-        assertEquals(CITY, actualAddressDB.getCity());
-        assertEquals(STREET, actualAddressDB.getStreet());
-        assertEquals(NUMBER, actualAddressDB.getNumber());
+        assertEquals(mappedAddress.getDbId(), actualAddressDB.getId());
+        assertEquals(mappedAddress.getCountry(), actualAddressDB.getCountry());
+        assertEquals(mappedAddress.getCity(), actualAddressDB.getCity());
+        assertEquals(mappedAddress.getStreet(), actualAddressDB.getStreet());
+        assertEquals(mappedAddress.getNumber(), actualAddressDB.getNumber());
     }
 
     @Test
     void mapToAddress() {
-        AddressDB mappedAddressDB = AddressDB.builder()
-                .id(ID)
-                .country(COUNTRY)
-                .city(CITY)
-                .street(STREET)
-                .number(NUMBER)
-                .build();
+        AddressDB mappedAddressDB = TestUtils.readValue(this.getClass(), AddressDB.class,
+                "com/customer/handling/service/mapping/mapToAddress_mappedAddressDB.json");
 
         Address actualAddress = customerMapper.mapToAddress(mappedAddressDB);
 
-        assertEquals(ID, actualAddress.getDbId());
-        assertEquals(COUNTRY, actualAddress.getCountry());
-        assertEquals(CITY, actualAddress.getCity());
-        assertEquals(STREET, actualAddress.getStreet());
-        assertEquals(NUMBER, actualAddress.getNumber());
+        assertEquals(mappedAddressDB.getId(), actualAddress.getDbId());
+        assertEquals(mappedAddressDB.getCountry(), actualAddress.getCountry());
+        assertEquals(mappedAddressDB.getCity(), actualAddress.getCity());
+        assertEquals(mappedAddressDB.getStreet(), actualAddress.getStreet());
+        assertEquals(mappedAddressDB.getNumber(), actualAddress.getNumber());
     }
 
     @ParameterizedTest
@@ -131,27 +117,24 @@ public class CustomerMapperTest {
 
     @Test
     void mapToCustomerDB() {
-        Customer customer = Customer.builder()
-                .dbId(ID)
-                .name(NAME)
-                .build();
+        Customer mappedCustomer = TestUtils.readValue(this.getClass(), Customer.class,
+                "com/customer/handling/service/mapping/mapToCustomerDB_mappedCustomer.json");
 
-        CustomerDB actualCustomerDB = customerMapper.mapToCustomerDB(customer);
+        CustomerDB actualCustomerDB = customerMapper.mapToCustomerDB(mappedCustomer);
 
-        assertEquals(ID, actualCustomerDB.getId());
-        assertEquals(NAME, actualCustomerDB.getName());
+        assertEquals(mappedCustomer.getDbId(), actualCustomerDB.getId());
+        assertEquals(mappedCustomer.getName(), actualCustomerDB.getName());
     }
 
     @Test
     void mapToCustomer() {
-        CustomerDB customerDB = CustomerDB.builder()
-                .id(ID)
-                .name(NAME)
-                .build();
+        CustomerDB customerDB = TestUtils.readValue(this.getClass(), CustomerDB.class,
+                "com/customer/handling/service/mapping/mapToCustomer_customerDB.json");
+
          Customer actualCustomer = customerMapper.mapToCustomer(customerDB);
 
-         assertEquals(ID, actualCustomer.getDbId());
-         assertEquals(NAME, actualCustomer.getName());
+         assertEquals(customerDB.getId(), actualCustomer.getDbId());
+         assertEquals(customerDB.getName(), actualCustomer.getName());
     }
 
     @ParameterizedTest

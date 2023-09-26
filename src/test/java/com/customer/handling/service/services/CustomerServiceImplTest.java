@@ -1,5 +1,6 @@
 package com.customer.handling.service.services;
 
+import com.customer.handling.service.TestUtils;
 import com.customer.handling.service.apimodel.Customer;
 import com.customer.handling.service.database.CustomerDB;
 import com.customer.handling.service.database.repository.CustomerRepository;
@@ -21,8 +22,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceImplTest {
 
-    private final Integer ID = 13;
-    private final String NAME = "Yarema";
+    private final Integer ID = 91;
 
     @Mock
     private CustomerRepository customerRepository;
@@ -36,10 +36,8 @@ class CustomerServiceImplTest {
     @Test
     void getCustomer() {
         // given
-        CustomerDB mockedGetCustomerDB = CustomerDB.builder()
-                .id(ID)
-                .name(NAME)
-                .build();
+        CustomerDB mockedGetCustomerDB = TestUtils.readValue(this.getClass(), CustomerDB.class,
+                "com/customer/handling/service/services/customer/getCustomer_mockedGetCustomerDB.json");
 
         when(customerRepository.findById(eq(ID))).thenReturn(Optional.of(mockedGetCustomerDB));
 
@@ -49,22 +47,19 @@ class CustomerServiceImplTest {
         // then
         verify(customerRepository).findById(eq(ID));
 
-        assertEquals(ID, actualCustomer.getDbId());
-        assertEquals(NAME, actualCustomer.getName());
+        assertEquals(mockedGetCustomerDB.getId(), actualCustomer.getDbId());
+        assertEquals(mockedGetCustomerDB.getName(), actualCustomer.getName());
     }
 
     @Test
     void createCustomer() {
         // given
-        CustomerDB createdCustomerDB = CustomerDB.builder()
-                .id(ID)
-                .name(NAME)
-                .build();
+        CustomerDB createdCustomerDB = TestUtils.readValue(this.getClass(), CustomerDB.class,
+                "com/customer/handling/service/services/customer/createCustomer_createdCustomer.json");
         when(customerRepository.save(any(CustomerDB.class))).thenReturn(createdCustomerDB);
 
-        Customer customerToCreate = Customer.builder()
-                .name(NAME)
-                .build();
+        Customer customerToCreate = TestUtils.readValue(this.getClass(), Customer.class,
+                "com/customer/handling/service/services/customer/createCustomer_customerToCreate.json");
 
         // when
         Customer actualCustomer = customerServiceImpl.createCustomer(customerToCreate);
@@ -74,31 +69,25 @@ class CustomerServiceImplTest {
         CustomerDB capturedCustomerDB = customerDBArgumentCaptor.getValue();
 
         assertNull(capturedCustomerDB.getId());
-        assertEquals(NAME, capturedCustomerDB.getName());
+        assertEquals(customerToCreate.getName(), capturedCustomerDB.getName());
 
-        assertEquals(ID, actualCustomer.getDbId());
-        assertEquals(NAME, actualCustomer.getName());
+        assertEquals(createdCustomerDB.getId(), actualCustomer.getDbId());
+        assertEquals(createdCustomerDB.getName(), actualCustomer.getName());
     }
 
     @Test
     void updateCustomer() {
         // given
-        CustomerDB findedByIdCustomerDB = CustomerDB.builder()
-                .id(ID)
-                .name(NAME)
-                .build();
-        when(customerRepository.findById(eq(ID))).thenReturn(Optional.of(findedByIdCustomerDB));
+        CustomerDB foundedByIdCustomerDB = TestUtils.readValue(this.getClass(), CustomerDB.class,
+                "com/customer/handling/service/services/customer/updateCustomer_foundedByIdCustomer.json");
+        when(customerRepository.findById(eq(ID))).thenReturn(Optional.of(foundedByIdCustomerDB));
 
-        CustomerDB updatedCustomerDB = CustomerDB.builder()
-                .id(ID)
-                .name(NAME)
-                .build();
+        CustomerDB updatedCustomerDB = TestUtils.readValue(this.getClass(), CustomerDB.class,
+                "com/customer/handling/service/services/customer/updateCustomer_updatedCustomerDB.json");
         when(customerRepository.save(any(CustomerDB.class))).thenReturn(updatedCustomerDB);
 
-        Customer customerToUpdate = Customer.builder()
-                .dbId(ID)
-                .name(NAME)
-                .build();
+        Customer customerToUpdate = TestUtils.readValue(this.getClass(), Customer.class,
+                "com/customer/handling/service/services/customer/updateCustomer_customerToUpdate.json");
 
         // when
         Customer actualCustomer = customerServiceImpl.updateCustomer(customerToUpdate);
@@ -108,11 +97,11 @@ class CustomerServiceImplTest {
 
         verify(customerRepository).save(customerDBArgumentCaptor.capture());
         CustomerDB capturedCustomerDB = customerDBArgumentCaptor.getValue();
-        assertEquals(ID, capturedCustomerDB.getId());
-        assertEquals(NAME, capturedCustomerDB.getName());
+        assertEquals(customerToUpdate.getDbId(), capturedCustomerDB.getId());
+        assertEquals(customerToUpdate.getName(), capturedCustomerDB.getName());
 
-        assertEquals(ID, actualCustomer.getDbId());
-        assertEquals(NAME, actualCustomer.getName());
+        assertEquals(updatedCustomerDB.getId(), actualCustomer.getDbId());
+        assertEquals(updatedCustomerDB.getName(), actualCustomer.getName());
     }
 
     @Test
