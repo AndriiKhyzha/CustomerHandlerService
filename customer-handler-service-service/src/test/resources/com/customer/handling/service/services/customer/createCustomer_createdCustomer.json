@@ -1,4 +1,11 @@
 {
   "id": 99,
-  "name": "Mamaj"
+  "name": "Mamaj",
+  "address": {
+    "dbId": 73,
+    "country": "Canada",
+    "city": "Calgary",
+    "street": "Calgary Ave.",
+    "number": "148"
+  }
 }

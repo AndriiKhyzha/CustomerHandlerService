@@ -1,6 +1,6 @@
 package com.customer.handling.service.service;
 
-import com.customer.handling.service.api.Customer;
+import com.customer.handling.service.models.Customer;
 import com.customer.handling.service.database.CustomerDB;
 import com.customer.handling.service.database.repository.CustomerRepository;
 import com.customer.handling.service.mapping.CustomerMapper;
@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomer(Integer id) {
         CustomerDB customerDB = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer with id: "+ id + "not found")  );
+                .orElseThrow(() -> new RuntimeException("Customer with id: "+ id + "not found"));
 
         return customerMapper.mapToCustomer(customerDB);
     }

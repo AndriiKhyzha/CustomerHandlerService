@@ -1,6 +1,6 @@
 package com.customer.handling.service.service;
 
-import com.customer.handling.service.api.Customer;
+import com.customer.handling.service.models.Customer;
 import com.customer.handling.service.database.CustomerDB;
 import com.customer.handling.service.database.repository.CustomerRepository;
 import com.customer.handling.service.test.utils.TestUtils;

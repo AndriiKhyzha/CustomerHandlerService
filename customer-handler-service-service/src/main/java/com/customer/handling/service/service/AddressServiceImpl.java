@@ -1,6 +1,6 @@
 package com.customer.handling.service.service;
 
-import com.customer.handling.service.api.Address;
+import com.customer.handling.service.models.Address;
 import com.customer.handling.service.database.AddressDB;
 import com.customer.handling.service.database.repository.AddressRepository;
 import com.customer.handling.service.mapping.CustomerMapper;

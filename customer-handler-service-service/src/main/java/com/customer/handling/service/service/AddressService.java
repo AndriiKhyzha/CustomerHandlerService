@@ -1,6 +1,6 @@
 package com.customer.handling.service.service;
 
-import com.customer.handling.service.api.Address;
+import com.customer.handling.service.models.Address;
 
 public interface AddressService {
 

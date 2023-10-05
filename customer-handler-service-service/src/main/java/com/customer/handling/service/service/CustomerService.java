@@ -1,6 +1,6 @@
 package com.customer.handling.service.service;
 
-import com.customer.handling.service.api.Customer;
+import com.customer.handling.service.models.Customer;
 
 public interface CustomerService {
 

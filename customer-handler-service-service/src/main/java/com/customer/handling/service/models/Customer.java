@@ -1,4 +1,4 @@
-package com.customer.handling.service.api;
+package com.customer.handling.service.models;
 
 import lombok.*;
 
@@ -14,4 +14,3 @@ public class Customer {
     private String name;
     private Address address;
 }
-

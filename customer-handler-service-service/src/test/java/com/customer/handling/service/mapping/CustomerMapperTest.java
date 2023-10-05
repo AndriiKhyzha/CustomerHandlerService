@@ -1,7 +1,7 @@
 package com.customer.handling.service.mapping;
 
-import com.customer.handling.service.api.Address;
-import com.customer.handling.service.api.Customer;
+import com.customer.handling.service.models.Address;
+import com.customer.handling.service.models.Customer;
 import com.customer.handling.service.database.AddressDB;
 import com.customer.handling.service.database.CustomerDB;
 import com.customer.handling.service.test.utils.TestUtils;
