@@ -9,15 +9,26 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
-@Table
-@Entity(name = "address")
+@Entity
+@Table(name = "address")
 public class AddressDB {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
     private String country;
+
+    @Column
     private String city;
+
+    @Column
     private String street;
+
+    @Column
     private String number;
+
+    @OneToOne(mappedBy = "address")
+    private CustomerDB customerDB;
 }

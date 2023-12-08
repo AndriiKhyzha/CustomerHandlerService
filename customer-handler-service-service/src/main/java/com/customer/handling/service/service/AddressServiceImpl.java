@@ -10,13 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
+//@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class AddressServiceImpl implements AddressService {
 
-    private final AddressRepository addressRepository;
+    @Autowired
+    private AddressRepository addressRepository;
+
 
     private final CustomerMapper customerMapper = Mappers.getMapper(CustomerMapper.class);
 
+    @Override
     public Address getAddress(Integer id)  {
         AddressDB addressDB = addressRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Address object with id:" + id + " not found"));

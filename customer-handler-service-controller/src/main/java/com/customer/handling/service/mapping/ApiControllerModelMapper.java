@@ -11,11 +11,11 @@ import org.mapstruct.Mappings;
 
 public interface ApiControllerModelMapper {
 
-@Mappings({
-        @Mapping(target = "dbId", source = "customer.dbId"),
-        @Mapping(target = "name", source = "name"),
-        @Mapping(target = "address", source = "address")}
-)
+    @Mappings({
+            @Mapping(target = "dbId", source = "customer.dbId"),
+            @Mapping(target = "name", source = "name"),
+            @Mapping(target = "address", source = "address")
+    })
     CustomerData map(Customer customer);
 
     @Mappings({
@@ -32,7 +32,6 @@ public interface ApiControllerModelMapper {
             @Mapping(target = "street", source = "street"),
             @Mapping(target = "number", source = "number")
     })
-
     AddressData map(Address address);
 
     @Mappings({
@@ -41,7 +40,6 @@ public interface ApiControllerModelMapper {
             @Mapping(target = "city", source = "city"),
             @Mapping(target = "street", source = "street"),
             @Mapping(target = "number", source = "number")
-})
-
+    })
     Address map(AddressData addressData);
 }

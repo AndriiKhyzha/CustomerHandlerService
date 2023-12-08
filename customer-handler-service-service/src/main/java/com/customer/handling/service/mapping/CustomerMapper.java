@@ -64,7 +64,8 @@ public interface CustomerMapper {
 
     @Mappings({
             @Mapping(target = "id", source = "customerDB.id"),
-            @Mapping(target = "name", ignore = true)
+            @Mapping(target = "name", ignore = true),
+            @Mapping(target = "address", source = "customer.address")
     })
     CustomerDB mapToCustomerDb(CustomerDB customerDB, Customer customer);
 

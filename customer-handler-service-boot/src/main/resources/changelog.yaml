@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_address
+      author: Andrii
+      preConditions:
+        - onFail: CONTINUE
+          not:
+            tableExists:
+              tableName: address
+      changes:
+        - createTable:
+            tableName: address
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: country
+                  type: VARCHAR(255)
+              - column:
+                  name: city
+                  type: VARCHAR(255)
+              - column:
+                  name: street
+                  type: VARCHAR(255)
+              - column:
+                  name: number
+                  type: VARCHAR(255)
+  - changeSet:
+      id: create_table_customer
+      author: Andrii
+      preConditions:
+        - onFail: CONTINUE
+          not:
+          tableExists:
+            tableName: customer
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: address
+                  type: INT
+        - addForeignKeyConstraint:
+            baseColumnNames: address
+            baseTableName: customer
+            constraintName: fk_address
+            referencedColumnNames: id
+            referencedTableName: address

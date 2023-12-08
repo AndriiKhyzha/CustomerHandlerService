@@ -16,5 +16,11 @@ public class CustomerDB {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
     private String name;
+
+    @JoinColumn(name = "address")
+    @OneToOne(cascade = CascadeType.ALL)
+    private AddressDB address;
 }
