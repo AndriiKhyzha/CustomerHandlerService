@@ -11,6 +11,7 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -39,15 +40,15 @@ class AddressControllerTest {
         when(addressService.getAddress(eq(id))).thenReturn(findedByIdAddress);
 
         //when
-        AddressData actualAddress = addressController.getAddress(id);
+        ResponseEntity<AddressData> actualAddress = addressController.getAddress(id);
 
         //then
         verify(addressService, times(1)).getAddress(eq(id));
-        assertEquals(findedByIdAddress.getDbId(), actualAddress.dbId());
-        assertEquals(findedByIdAddress.getCountry(), actualAddress.country());
-        assertEquals(findedByIdAddress.getCity(), actualAddress.city());
-        assertEquals(findedByIdAddress.getStreet(), actualAddress.street());
-        assertEquals(findedByIdAddress.getNumber(), actualAddress.number());
+        assertEquals(findedByIdAddress.getDbId(), actualAddress.getBody().dbId());
+        assertEquals(findedByIdAddress.getCountry(), actualAddress.getBody().country());
+        assertEquals(findedByIdAddress.getCity(), actualAddress.getBody().city());
+        assertEquals(findedByIdAddress.getStreet(), actualAddress.getBody().street());
+        assertEquals(findedByIdAddress.getNumber(), actualAddress.getBody().number());
     }
 
     @Test
@@ -62,7 +63,7 @@ class AddressControllerTest {
                 "com/customer/handling/service/controller/address/createAddress_requestAddress.json");
 
         // when
-        AddressData actualAddress = addressController.createAddress(requestAddress);
+        ResponseEntity<AddressData> actualAddress = addressController.createAddress(requestAddress);
 
         // then
         verify(addressService, times(1)).createAddress(addressArgumentCaptor.capture());
@@ -75,11 +76,11 @@ class AddressControllerTest {
         assertEquals(requestAddress.number(), capturedAddress.getNumber());
 
         // assert returned created address in database
-        assertEquals(mockedCreatedAddress.getDbId(), actualAddress.dbId());
-        assertEquals(mockedCreatedAddress.getCountry(), actualAddress.country());
-        assertEquals(mockedCreatedAddress.getCity(), actualAddress.city());
-        assertEquals(mockedCreatedAddress.getStreet(), actualAddress.street());
-        assertEquals(mockedCreatedAddress.getNumber(), actualAddress.number());
+        assertEquals(mockedCreatedAddress.getDbId(), actualAddress.getBody().dbId());
+        assertEquals(mockedCreatedAddress.getCountry(), actualAddress.getBody().country());
+        assertEquals(mockedCreatedAddress.getCity(), actualAddress.getBody().city());
+        assertEquals(mockedCreatedAddress.getStreet(), actualAddress.getBody().street());
+        assertEquals(mockedCreatedAddress.getNumber(), actualAddress.getBody().number());
     }
     @Test
     void deleteAddress() {
@@ -105,7 +106,7 @@ class AddressControllerTest {
                 "com/customer/handling/service/controller/address/updateAddress_requestAddress.json");
 
         //when
-        AddressData actualAddress = addressController.updateAddress(requestAddress);
+        ResponseEntity<AddressData> actualAddress = addressController.updateAddress(requestAddress);
 
         //then
         verify(addressService, times(1)).updateAddress(addressArgumentCaptor.capture());
@@ -118,10 +119,10 @@ class AddressControllerTest {
         assertEquals(requestAddress.number(), capturedAddress.getNumber());
 
         //
-        assertEquals(mockedAddressForUpdate.getDbId(), actualAddress.dbId());
-        assertEquals(mockedAddressForUpdate.getCountry(), actualAddress.country());
-        assertEquals(mockedAddressForUpdate.getCity(), actualAddress.city());
-        assertEquals(mockedAddressForUpdate.getStreet(), actualAddress.street());
-        assertEquals(mockedAddressForUpdate.getNumber(), actualAddress.number());
+        assertEquals(mockedAddressForUpdate.getDbId(), actualAddress.getBody().dbId());
+        assertEquals(mockedAddressForUpdate.getCountry(), actualAddress.getBody().country());
+        assertEquals(mockedAddressForUpdate.getCity(), actualAddress.getBody().city());
+        assertEquals(mockedAddressForUpdate.getStreet(), actualAddress.getBody().street());
+        assertEquals(mockedAddressForUpdate.getNumber(), actualAddress.getBody().number());
     }
 }
