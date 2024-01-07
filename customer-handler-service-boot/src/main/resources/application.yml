@@ -6,8 +6,22 @@ spring:
     name: customer-handler-service
   config:
     import: >
+      customer-handler-service.yml,
       application-jackson.yml,
       application-database.yml
   cloud:
     config:
       enabled: false
+
+logging:
+  level:
+    com.customer.handling.service: INFO
+
+  management:
+    endpoint:
+      health:
+        show-details: always
+    endpoints:
+      web:
+        exposure:
+          include: info, health

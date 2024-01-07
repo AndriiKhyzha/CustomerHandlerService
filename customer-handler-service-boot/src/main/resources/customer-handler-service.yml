@@ -1,0 +1,5 @@
+customer-handler-service:
+  logging:
+    logging-uri-patterns-list: >
+      /customer/*,
+      /address/*
