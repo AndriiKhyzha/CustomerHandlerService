@@ -3,6 +3,7 @@ package com.customer.handling.service.controller;
 import com.customer.handling.service.api.AddressData;
 import com.customer.handling.service.mapping.ApiControllerModelMapper;
 import com.customer.handling.service.service.AddressService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class AddressController {
     private final ApiControllerModelMapper apiControllerModelMapper = Mappers.getMapper(ApiControllerModelMapper.class);
 
     @ResponseBody
+    @Tag(name = "method.POST", description =  "post Data body to My SQL DB with help Springdoc OpenApi:-P")
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = "application/json")
     public ResponseEntity<AddressData> createAddress(@RequestBody AddressData addressData) {
         AddressData addressCreateData = apiControllerModelMapper.map(addressService.createAddress(apiControllerModelMapper.map(addressData)));
@@ -29,6 +31,7 @@ public class AddressController {
     }
 
     @ResponseBody
+    @Tag(name = "method.GET")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AddressData> getAddress(@PathVariable("id") Integer id) {
         AddressData addressGetData = apiControllerModelMapper.map(addressService.getAddress(id));
@@ -36,6 +39,7 @@ public class AddressController {
         return ResponseEntity.ok(addressGetData);
     }
 
+    @Tag(name = "method.DELETE", description =  "delete Data body from My SQL DB")
     @DeleteMapping(value = "/{id}")
     public void deleteAddress(@PathVariable("id") Integer id) {
         addressService.deleteAddress(id);
@@ -43,6 +47,7 @@ public class AddressController {
     }
 
     @ResponseBody
+    @Tag(name = "method.PUT")
     @PutMapping(value = "/update", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AddressData> updateAddress(@RequestBody AddressData addressData){
         AddressData addressDataUpdated = apiControllerModelMapper.map(addressService.updateAddress(apiControllerModelMapper.map(addressData)));

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8080 # HTTP (Tomcat) port
 
 spring:
   application:
@@ -8,7 +8,8 @@ spring:
     import: >
       customer-handler-service.yml,
       application-jackson.yml,
-      application-database.yml
+      application-database.yml,
+      open-api-config.yml
   cloud:
     config:
       enabled: false

@@ -9,15 +9,15 @@ spring:
       maximumPoolSize: 13
   jpa:
     open-in-view: false
-    generate-ddl: false
+    generate-ddl: false # Initialize the schema on startup.
     hibernate:
       ddl-auto: update # update if schema is changed
       use-new-in-generate-mappings: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL57InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true # show sql logs
   liquibase:
-    enabled: false # disable liquibase. todo run and test
-    drop-first: false # don't
+    enabled: false # disable liquibase
+    drop-first: false # ignores schema
     change-log: classpath:changelog.yaml
