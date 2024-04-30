@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.customer.handling.service</groupId>
         <artifactId>customer-handler-service</artifactId>
-        <version>0.1.0.RELEASE</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>customer-handler-service-boot</artifactId>
@@ -21,22 +21,22 @@
         <dependency>
             <groupId>com.customer.handling.service</groupId>
             <artifactId>customer-handler-service-api</artifactId>
-            <version>0.1.0.RELEASE</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.customer.handling.service</groupId>
             <artifactId>customer-handler-service-database</artifactId>
-            <version>0.1.0.RELEASE</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.customer.handling.service</groupId>
             <artifactId>customer-handler-service-service</artifactId>
-            <version>0.1.0.RELEASE</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.customer.handling.service</groupId>
             <artifactId>customer-handler-service-controller</artifactId>
-            <version>0.1.0.RELEASE</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -45,8 +45,41 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.customer.handling.service.boot.CustomerHandlerServiceApplication</mainClass>
+                    <finalName>customer-handler-service</finalName>
+                    <skip>false</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <addResources>true</addResources>-->
+<!--                    <finalName>customer-handler-service</finalName>-->
+<!--                    <skip>true</skip>-->
+<!--                    <classifier>exec</classifier>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>build-info</goal>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
+
     </build>
 
 </project>
