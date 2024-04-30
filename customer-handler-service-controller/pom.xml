@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.customer.handling.service</groupId>
         <artifactId>customer-handler-service</artifactId>
-        <version>0.1.0.RELEASE</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>customer-handler-service-controller</artifactId>
@@ -21,12 +21,12 @@
         <dependency>
             <groupId>com.customer.handling.service</groupId>
             <artifactId>customer-handler-service-api</artifactId>
-            <version>0.1.0.RELEASE</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.customer.handling.service</groupId>
             <artifactId>customer-handler-service-service</artifactId>
-            <version>0.1.0.RELEASE</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
