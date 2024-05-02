@@ -15,7 +15,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <HikariCP.version>4.0.3</HikariCP.version>
+        <HikariCP.version>5.0.1</HikariCP.version>
         <jaxb-api.version>2.3.0</jaxb-api.version>
     </properties>
 

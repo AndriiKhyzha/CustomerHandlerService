@@ -1,0 +1,23 @@
+#app:
+#  name: customer-handler-service
+#  api:
+#    title: JavaInUse API
+#    description: Finally I understood how does working SWAGGER!!!!!
+#    version: 1.0
+###  project.version= @project.version@
+#springdoc:
+#  api-docs:
+#    path=/api-docs:
+#openapi: 3.1.0
+#info:
+#  version: 1.0.0
+#  title: Sample API
+#  description: A sample API to illustrate OpenAPI concepts
+#  springdoc:
+#    api-docs:
+#      path=/api-docs:
+#springdoc.swagger-ui.enabled = true
+#springdoc.swagger-ui.path = /swagger-ui.html
+#springdoc.swagger-ui.tryItOutEnabled = false
+#springdoc.swagger-ui.filter = false
+#springdoc.swagger-ui.syntaxHighlight.activated = true
