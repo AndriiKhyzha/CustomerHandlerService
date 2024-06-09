@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomer(Integer id) {
         CustomerDB customerDB = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer with id: "+ id + "not found"));
+                .orElseThrow(() -> new RuntimeException("Customer with id: "+ id + " not found"));
 
         return customerMapper.mapToCustomer(customerDB);
     }

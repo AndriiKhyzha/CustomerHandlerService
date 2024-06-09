@@ -47,39 +47,40 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.customer.handling.service.boot.CustomerHandlerServiceApplication</mainClass>
+                    <addResources>true</addResources>
                     <finalName>customer-handler-service</finalName>
                     <skip>false</skip>
+                    <classifier>exec</classifier>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>repackage</goal>
                             <goal>build-info</goal>
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <addResources>true</addResources>-->
-<!--                    <finalName>customer-handler-service</finalName>-->
-<!--                    <skip>true</skip>-->
-<!--                    <classifier>exec</classifier>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>build-info</goal>-->
-<!--                            <goal>repackage</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
         </plugins>
-
     </build>
-
+    <!--            <plugin>-->
+    <!--                <groupId>org.springframework.boot</groupId>-->
+    <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+    <!--                <configuration>-->
+    <!--                    <addResources>true</addResources>-->
+    <!--                    <finalName>customer-handler-service</finalName>-->
+    <!--                    <skip>true</skip>-->
+    <!--                    <classifier>exec</classifier>-->
+    <!--                </configuration>-->
+    <!--                <executions>-->
+    <!--                    <execution>-->
+    <!--                        <goals>-->
+    <!--                            <goal>build-info</goal>-->
+    <!--                            <goal>repackage</goal>-->
+    <!--                        </goals>-->
+    <!--                    </execution>-->
+    <!--                </executions>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
 </project>
+

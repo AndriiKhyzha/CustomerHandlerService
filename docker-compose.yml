@@ -1,0 +1,62 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+#    image: customer-handler-service:v1
+#    restart: always
+    container_name: Java_AppkA
+    ports:
+      - 8080:8080
+    depends_on:
+      - my-sql
+    environment:
+       spring.datasource.url: jdbc:mysql://my-sql:3306/test?allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true
+#      - SPRING_DATASOURCE_HOST=localhost
+#      MYSQL_HOST: root
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: cn07019820
+#      MYSQL_PORT: 3306
+    networks:
+      - myNetwork
+
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+
+  my-sql:
+    container_name: Na_BD
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: cn07019820
+      MYSQL_DATABASE: test
+      MYSQL_USER: root
+      MYSQL_HOST: localhost
+    ports:
+      - 3307:3306
+        #    command: --default-authentication-plugin=mysql_native_password
+#    expose:
+          # Opens port 3306 on the container
+    networks:
+      - myNetwork
+    restart: unless-stopped
+#    mysql_db
+#    C:\Program Files\MySQL\MySQL Server 8.0
+#    --default-authentication-plugin=MYSQL_ROOT_PASSWORD
+#      --init-file /data/application/init.sql
+    #      mysql_native_password
+    volumes:
+#        - ./init:/docker-entrypoint-initdb.d
+      - .mysql:/var/lib/mysql
+#        - /.test:
+#    depends_on:
+#        - app: customer-handler-service
+volumes:
+  my-sql:
+    name: AppKA
+networks:
+  myNetwork:
+    name: myNetwork
+#    name: springboot-mysql-network
