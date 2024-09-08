@@ -1,6 +1,7 @@
 package com.customer.handling.service.controller;
 
 import com.customer.handling.service.api.CustomerData;
+import com.customer.handling.service.exception.RequestNotValidException;
 import com.customer.handling.service.models.Customer;
 import com.customer.handling.service.service.CustomerService;
 import com.customer.handling.service.test.utils.TestUtils;
@@ -13,8 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -22,6 +22,7 @@ import static org.mockito.Mockito.*;
 class CustomerControllerTest {
 
     private static final Integer ID = 25;
+    private Integer Id = 0;
 
     @Mock
     private CustomerService customerService;
@@ -51,6 +52,16 @@ class CustomerControllerTest {
         assertEquals(mockedCustomerForGet.getAddress().getCity(), actualCustomer.getBody().address().city());
         assertEquals(mockedCustomerForGet.getAddress().getStreet(), actualCustomer.getBody().address().street());
         assertEquals(mockedCustomerForGet.getAddress().getNumber(), actualCustomer.getBody().address().number());
+    }
+
+    @Test
+    void getCustomerWithZeroDbId() {
+       assertThrows(RequestNotValidException.class,
+                () -> customerController.getCustomer(0),
+                "DbId must not be Zero"
+        );
+        //then
+        verify(customerService, never()).getCustomer(eq(Id));
     }
 
     @Test
