@@ -1,6 +1,7 @@
 package com.customer.handling.service.controller;
 
 import com.customer.handling.service.api.AddressData;
+import com.customer.handling.service.exception.RequestNotValidException;
 import com.customer.handling.service.models.Address;
 import com.customer.handling.service.service.AddressService;
 import com.customer.handling.service.test.utils.TestUtils;
@@ -13,8 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -49,6 +49,15 @@ class AddressControllerTest {
         assertEquals(findedByIdAddress.getCity(), actualAddress.getBody().city());
         assertEquals(findedByIdAddress.getStreet(), actualAddress.getBody().street());
         assertEquals(findedByIdAddress.getNumber(), actualAddress.getBody().number());
+    }
+
+    @Test
+    void getAddressWithZeroDbId() {
+        assertThrows(RequestNotValidException.class,
+                () -> addressController.getAddress(0),
+                "DbId must not be Zero"
+        );
+        verify(addressService, never()).getAddress(any());
     }
 
     @Test

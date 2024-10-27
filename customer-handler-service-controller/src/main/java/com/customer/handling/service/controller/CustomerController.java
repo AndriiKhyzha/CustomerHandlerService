@@ -1,6 +1,7 @@
 package com.customer.handling.service.controller;
 
 import com.customer.handling.service.api.CustomerData;
+import com.customer.handling.service.exception.RequestNotValidException;
 import com.customer.handling.service.mapping.ApiControllerModelMapper;
 import com.customer.handling.service.service.CustomerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,7 +25,10 @@ public class CustomerController {
     @ResponseBody
     @Tag(name = "method.GET", description =  "get Data body from My SQL DB with help Springdoc OpenApi:-P")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CustomerData> getCustomer(@PathVariable("id") Integer id){
+    public ResponseEntity<CustomerData> getCustomer(@PathVariable("id") Integer id) {
+        if (id <= 0) {
+            throw new RequestNotValidException("Id must not be negative or Zero");
+        }
         CustomerData customerData = apiControllerModelMapper.map(customerService.getCustomer(id));
         log.info("get request customer body: " + customerData);
         return ResponseEntity.ok(customerData);
@@ -33,6 +37,9 @@ public class CustomerController {
     @Tag(name = "method.DELETE")
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable("id") Integer id) {
+        if (id <= 0) {
+            throw new RequestNotValidException("Id must not be negative or Zero");
+        }
         customerService.deleteCustomer(id);
         log.info("delete request customer body with Id: " + id);
     }
@@ -48,7 +55,10 @@ public class CustomerController {
     @ResponseBody
     @Tag(name = "method.PUT", description =  "put new Data body to My SQL DB with help Springdoc OpenApi:-P")
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = "application/json")
-    public ResponseEntity<CustomerData> updateCustomer(@RequestBody CustomerData customerData){
+    public ResponseEntity<CustomerData> updateCustomer(@RequestBody CustomerData customerData) {
+        if (customerData.dbId() <= 0) {
+            throw new RequestNotValidException("Id must not be negative or Zero");
+        }
         CustomerData customerDataUpdated = apiControllerModelMapper
                 .map(customerService.updateCustomer(apiControllerModelMapper.map(customerData)));
         log.info("update request customer body with Id: " + customerData.dbId());

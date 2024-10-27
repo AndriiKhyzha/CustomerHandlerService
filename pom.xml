@@ -36,6 +36,7 @@
 		<slf4j.version>1.7.30</slf4j.version>
 		<org.springdoc.version>1.7.0</org.springdoc.version>
 		<customer-handler-service-test.version>0.1.0.RELEASE</customer-handler-service-test.version>
+		<httpclient.version>4.5.14</httpclient.version>
 	</properties>
 
 	<dependencyManagement>
@@ -98,6 +99,15 @@
 
 		<!-- tests -->
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>${junit.jupiter.version}</version>
@@ -107,6 +117,11 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -120,6 +135,11 @@
 			<artifactId>junit-platform-suite</artifactId>
 			<version>${junit.platform.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
 		</dependency>
 
 		<dependency>
