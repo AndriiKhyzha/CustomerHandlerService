@@ -1,6 +1,6 @@
 package com.customer.handling.service.controller;
 
-import com.customer.handling.service.api.CustomerData;
+import com.customer.handling.service.api.model.CustomerData;
 import com.customer.handling.service.exception.RequestNotValidException;
 import com.customer.handling.service.models.Customer;
 import com.customer.handling.service.service.CustomerService;
@@ -45,13 +45,13 @@ class CustomerControllerTest {
 
         //then
         verify(customerService,times(1)).getCustomer(eq(ID));
-        assertEquals(mockedCustomerForGet.getDbId(), actualCustomer.getBody().dbId());
-        assertEquals(mockedCustomerForGet.getName(), actualCustomer.getBody().name());
-        assertEquals(mockedCustomerForGet.getAddress().getDbId(), actualCustomer.getBody().address().dbId());
-        assertEquals(mockedCustomerForGet.getAddress().getCountry(), actualCustomer.getBody().address().country());
-        assertEquals(mockedCustomerForGet.getAddress().getCity(), actualCustomer.getBody().address().city());
-        assertEquals(mockedCustomerForGet.getAddress().getStreet(), actualCustomer.getBody().address().street());
-        assertEquals(mockedCustomerForGet.getAddress().getNumber(), actualCustomer.getBody().address().number());
+        assertEquals(mockedCustomerForGet.getDbId(), actualCustomer.getBody().getDbId());
+        assertEquals(mockedCustomerForGet.getName(), actualCustomer.getBody().getName());
+        assertEquals(mockedCustomerForGet.getAddress().getDbId(), actualCustomer.getBody().getAddress().getDbId());
+        assertEquals(mockedCustomerForGet.getAddress().getCountry(), actualCustomer.getBody().getAddress().getCountry());
+        assertEquals(mockedCustomerForGet.getAddress().getCity(), actualCustomer.getBody().getAddress().getCity());
+        assertEquals(mockedCustomerForGet.getAddress().getStreet(), actualCustomer.getBody().getAddress().getStreet());
+        assertEquals(mockedCustomerForGet.getAddress().getNumber(), actualCustomer.getBody().getAddress().getNumber());
     }
 
     @Test
@@ -90,21 +90,21 @@ class CustomerControllerTest {
         //
         Customer capturedCustomer = customerArgumentCaptor.getValue();
         assertNull(capturedCustomer.getDbId());
-        assertEquals(requestCustomer.name(), capturedCustomer.getName());
-        assertEquals(requestCustomer.address().dbId(), capturedCustomer.getAddress().getDbId());
-        assertEquals(requestCustomer.address().country(), capturedCustomer.getAddress().getCountry());
-        assertEquals(requestCustomer.address().city(), capturedCustomer.getAddress().getCity());
-        assertEquals(requestCustomer.address().street(), capturedCustomer.getAddress().getStreet());
-        assertEquals(requestCustomer.address().number(), capturedCustomer.getAddress().getNumber());
+        assertEquals(requestCustomer.getName(), capturedCustomer.getName());
+        assertEquals(requestCustomer.getAddress().getDbId(), capturedCustomer.getAddress().getDbId());
+        assertEquals(requestCustomer.getAddress().getCountry(), capturedCustomer.getAddress().getCountry());
+        assertEquals(requestCustomer.getAddress().getCity(), capturedCustomer.getAddress().getCity());
+        assertEquals(requestCustomer.getAddress().getStreet(), capturedCustomer.getAddress().getStreet());
+        assertEquals(requestCustomer.getAddress().getNumber(), capturedCustomer.getAddress().getNumber());
 
         //assert returned created customer in database
-        assertEquals(createdCustomer.getDbId(), actualCustomer.getBody().dbId());
-        assertEquals(createdCustomer.getName(), actualCustomer.getBody().name());
-        assertEquals(createdCustomer.getAddress().getDbId(), actualCustomer.getBody().address().dbId());
-        assertEquals(createdCustomer.getAddress().getCountry(), actualCustomer.getBody().address().country());
-        assertEquals(createdCustomer.getAddress().getCity(), actualCustomer.getBody().address().city());
-        assertEquals(createdCustomer.getAddress().getStreet(), actualCustomer.getBody().address().street());
-        assertEquals(createdCustomer.getAddress().getNumber(), actualCustomer.getBody().address().number());
+        assertEquals(createdCustomer.getDbId(), actualCustomer.getBody().getDbId());
+        assertEquals(createdCustomer.getName(), actualCustomer.getBody().getName());
+        assertEquals(createdCustomer.getAddress().getDbId(), actualCustomer.getBody().getAddress().getDbId());
+        assertEquals(createdCustomer.getAddress().getCountry(), actualCustomer.getBody().getAddress().getCountry());
+        assertEquals(createdCustomer.getAddress().getCity(), actualCustomer.getBody().getAddress().getCity());
+        assertEquals(createdCustomer.getAddress().getStreet(), actualCustomer.getBody().getAddress().getStreet());
+        assertEquals(createdCustomer.getAddress().getNumber(), actualCustomer.getBody().getAddress().getNumber());
     }
 
     @Test
@@ -124,21 +124,21 @@ class CustomerControllerTest {
         verify(customerService).updateCustomer(customerArgumentCaptor.capture());
         Customer capturedCustomer = customerArgumentCaptor.getValue();
         //
-        assertEquals(requestCustomer.dbId(), capturedCustomer.getDbId());
-        assertEquals(requestCustomer.name(), capturedCustomer.getName());
-        assertEquals(requestCustomer.address().dbId(), capturedCustomer.getAddress().getDbId());
-        assertEquals(requestCustomer.address().country(), capturedCustomer.getAddress().getCountry());
-        assertEquals(requestCustomer.address().city(), capturedCustomer.getAddress().getCity());
-        assertEquals(requestCustomer.address().street(), capturedCustomer.getAddress().getStreet());
-        assertEquals(requestCustomer.address().number(), capturedCustomer.getAddress().getNumber());
+        assertEquals(requestCustomer.getDbId(), capturedCustomer.getDbId());
+        assertEquals(requestCustomer.getName(), capturedCustomer.getName());
+        assertEquals(requestCustomer.getAddress().getDbId(), capturedCustomer.getAddress().getDbId());
+        assertEquals(requestCustomer.getAddress().getCountry(), capturedCustomer.getAddress().getCountry());
+        assertEquals(requestCustomer.getAddress().getCity(), capturedCustomer.getAddress().getCity());
+        assertEquals(requestCustomer.getAddress().getStreet(), capturedCustomer.getAddress().getStreet());
+        assertEquals(requestCustomer.getAddress().getNumber(), capturedCustomer.getAddress().getNumber());
 
         //assert returned updated customer in database
-        assertEquals(updatedCustomer.getDbId(), actualCustomer.getBody().dbId());
-        assertEquals(updatedCustomer.getName(), actualCustomer.getBody().name());
-        assertEquals(updatedCustomer.getAddress().getDbId(), actualCustomer.getBody().address().dbId());
-        assertEquals(updatedCustomer.getAddress().getCountry(), actualCustomer.getBody().address().country());
-        assertEquals(updatedCustomer.getAddress().getCity(), actualCustomer.getBody().address().city());
-        assertEquals(updatedCustomer.getAddress().getStreet(), actualCustomer.getBody().address().street());
-        assertEquals(updatedCustomer.getAddress().getNumber(), actualCustomer.getBody().address().number());
+        assertEquals(updatedCustomer.getDbId(), actualCustomer.getBody().getDbId());
+        assertEquals(updatedCustomer.getName(), actualCustomer.getBody().getName());
+        assertEquals(updatedCustomer.getAddress().getDbId(), actualCustomer.getBody().getAddress().getDbId());
+        assertEquals(updatedCustomer.getAddress().getCountry(), actualCustomer.getBody().getAddress().getCountry());
+        assertEquals(updatedCustomer.getAddress().getCity(), actualCustomer.getBody().getAddress().getCity());
+        assertEquals(updatedCustomer.getAddress().getStreet(), actualCustomer.getBody().getAddress().getStreet());
+        assertEquals(updatedCustomer.getAddress().getNumber(), actualCustomer.getBody().getAddress().getNumber());
     }
 }

@@ -1,7 +1,7 @@
 package com.customer.handling.service.mapping;
 
-import com.customer.handling.service.api.AddressData;
-import com.customer.handling.service.api.CustomerData;
+import com.customer.handling.service.api.model.AddressData;
+import com.customer.handling.service.api.model.CustomerData;
 import com.customer.handling.service.models.Address;
 import com.customer.handling.service.models.Customer;
 import org.mapstruct.Mapper;
