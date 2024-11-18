@@ -20,11 +20,6 @@
     <dependencies>
         <dependency>
             <groupId>com.customer.handling.service</groupId>
-            <artifactId>customer-handler-service-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.customer.handling.service</groupId>
             <artifactId>customer-handler-service-database</artifactId>
             <version>${project.version}</version>
         </dependency>

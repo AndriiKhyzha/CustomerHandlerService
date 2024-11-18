@@ -1,7 +1,7 @@
 package com.customer.handling.service.boot.error;
 
-import com.customer.handling.service.api.error.Error;
-import com.customer.handling.service.api.error.ErrorResponse;
+import com.customer.handling.service.api.model.Error;
+import com.customer.handling.service.api.model.ErrorResponse;
 import com.customer.handling.service.exception.ItemInDbNotFoundException;
 import com.customer.handling.service.exception.RequestNotValidException;
 import lombok.extern.slf4j.Slf4j;
@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @Slf4j
 @RestControllerAdvice
 public class ExceptionMapper {
 
+    private final Clock clock = Clock.system(ZoneId.systemDefault());
     @ExceptionHandler(RequestNotValidException.class)
     public ResponseEntity<ErrorResponse> handleRequestNotValidException(
             HttpServletRequest httpServletRequest,
@@ -56,17 +59,11 @@ public class ExceptionMapper {
             String detail) {
         return ResponseEntity
                 .status(httpStatus)
-                .body(
-                        ErrorResponse.builder()
-                                .timestamp(ZonedDateTime.now(ZoneId.systemDefault()))
-                                .path(requestUri)
-                                .errors(List.of(
-                                        Error.builder()
-                                                .code(code)
-                                                .detail(detail)
-                                                .build()
-                                ))
-                                .build()
-                );
+                .body(new ErrorResponse(
+                        OffsetDateTime.ofInstant(Instant.now(clock), ZoneId.systemDefault()),
+                        requestUri,
+                        detail,
+                        List.of(new Error(code,detail))
+                ));
     }
 }

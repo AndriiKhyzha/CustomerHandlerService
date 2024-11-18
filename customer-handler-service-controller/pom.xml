@@ -20,11 +20,6 @@
     <dependencies>
         <dependency>
             <groupId>com.customer.handling.service</groupId>
-            <artifactId>customer-handler-service-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.customer.handling.service</groupId>
             <artifactId>customer-handler-service-service</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -32,6 +27,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.test.web.application.api</groupId>
+            <artifactId>test-web-application-api</artifactId>
         </dependency>
     </dependencies>
 
