@@ -35,7 +35,7 @@
 		<slf4j.version>1.7.30</slf4j.version>
 		<org.springdoc.version>1.7.0</org.springdoc.version>
 		<customer-handler-service-test.version>0.1.0.RELEASE</customer-handler-service-test.version>
-		<test-web-application-api.version>0.1.0</test-web-application-api.version>
+		<customer-handler-api.version>0.1.0</customer-handler-api.version>
 		<httpclient.version>4.5.14</httpclient.version>
 	</properties>
 
@@ -58,9 +58,9 @@
 				<version>${jackson.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.test.web.application.api</groupId>
-				<artifactId>test-web-application-api</artifactId>
-				<version>${test-web-application-api.version}</version>
+				<groupId>com.customer.handling.service.api</groupId>
+				<artifactId>customer-handler-api</artifactId>
+				<version>${customer-handler-api.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
